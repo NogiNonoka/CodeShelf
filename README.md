@@ -14,7 +14,7 @@ Data: 2020 - 11 - 09
 
 - If you defined the code as Header Files, Submit a `($AlgorithmName)_Test.cpp` for test.
 
-### Header
+### Headers
 
 - Permit but Not Recommend using `bits/stdc++.h`;
 
@@ -48,7 +48,7 @@ Data: 2020 - 11 - 09
 
 - (Optional) Add a **Problem ID** with a **Link** and solve it in your `main` function or **Independent** `solve` function;
 
-### Constant
+### Constants
 
 ```C++
 // Optional
@@ -63,7 +63,7 @@ const int DIRX[] = {};
 const int DIRY[] = {};
 ```
 
-This Constants which you Use should be defined in your Template;
+This Constants which you Used should be defined in your Template;
 
 ## Catalogue
 
