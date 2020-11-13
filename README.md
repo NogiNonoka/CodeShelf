@@ -12,7 +12,7 @@ Data: 2020 - 11 - 09
 
 - Name as `$AlgorithmName.h` or `$AlgorithmName.cpp`
 
-- If you use a Header Files, Submit a `($AlgorithmName)_Test.cpp` for test.
+- If you defined the code as Header Files, Submit a `($AlgorithmName)_Test.cpp` for test.
 
 ### Header
 
@@ -30,7 +30,7 @@ Data: 2020 - 11 - 09
 
 - Other Algorithms you Used in your Algorithm;
 
-- Analyze Time and Space Complexity;
+- Analyze **Time** and Space Complexity;
 
 #### Functions / Variables Comments:
 
@@ -42,7 +42,7 @@ Data: 2020 - 11 - 09
 
 - Recommend using **Struct / Template** for Data Structure and Algorithm;
 
-- Use **Pascal Case** for Naming Functions in Struct;
+- Use **Pascal Case** or **Camel Case** for Naming Functions in Struct;
 
 - Add a **DEBUG** part / function;
 
