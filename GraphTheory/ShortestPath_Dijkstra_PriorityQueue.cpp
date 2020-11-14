@@ -68,7 +68,7 @@ struct DijkstraPQ
     }
 
 #ifdef DEBUG
-    void getDis()
+    void showDis()
     {
         cout << s << endl;
         for (int i = 1; i <= n; ++i)
