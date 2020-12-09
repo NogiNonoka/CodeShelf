@@ -9,7 +9,6 @@
  */
 
 #include <iostream>
-#include <cstdio>
 using namespace std;
 const int MAXN = 1e5 + 7;
 
@@ -65,11 +64,12 @@ struct DisjointUnion
     }
 }dsu;
 
-
 int main(void)
 {
     // Problem ID: Luogu P3367
     // Link: https://www.luogu.com.cn/problem/P3367
+    ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
     int n, m;
     cin >> n >> m;
     dsu.initParent(n);
@@ -84,13 +84,9 @@ int main(void)
         if (t == 2)
         {
             if (dsu.checkUnicom(x, y))
-            {
                 cout << "Y" << endl;
-            }
             else 
-            {
                 cout << "N" << endl;
-            }
         }
     }
     return 0;

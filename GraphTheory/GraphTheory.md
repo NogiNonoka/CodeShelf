@@ -7,3 +7,7 @@
 #### Minimum Spanning Tree
 
 - 2020.11.23 Add Prim
+
+#### Strongly Connected Components
+
+- 2020.12.09 Add Tarjan
