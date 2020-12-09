@@ -4,6 +4,9 @@
  * @FilePath            : /CodeShelf/GraphTheory/StronglyConnectedComponents_Tarjan.cpp
  * @Forward Declaration : None
  * @Discription         : 
+ *  Strongly Connected Components in Directed Graph
+ *  Tarjan
+ *  Time Complexity: O(V+E)
  */
 
 #include <iostream>
