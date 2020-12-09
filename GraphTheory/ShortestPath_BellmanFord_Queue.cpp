@@ -1,3 +1,14 @@
+/*
+ * @Author              : NogiNonoka
+ * @Date                : 2020-11-13 20:11:53
+ * @FilePath            : /CodeShelf/GraphTheory/ShortestPath_BellmanFord_Queue.cpp
+ * @Forward Declaration : None
+ * @Discription         : 
+ *  Shortest Path
+ *  Bellman Ford (Queue Ver)
+ *  Time Complexity: O(VE)
+ */
+
 #include <iostream>
 #include <cstring>
 #include <queue>

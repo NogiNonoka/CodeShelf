@@ -1,3 +1,14 @@
+/*
+ * @Author              : NogiNonoka
+ * @Date                : 2020-11-13 19:16:05
+ * @FilePath            : /CodeShelf/GraphTheory/ShortestPath_Dijkstra_PriorityQueue.cpp
+ * @Forward Declaration : None
+ * @Discription         : 
+ *  Shortest Path
+ *  Dijkstra (Priority_Queue Ver.)
+ *  Time Complexity: O(ElogE)
+ */
+
 #include <iostream>
 #include <cstring>
 #include <queue>
