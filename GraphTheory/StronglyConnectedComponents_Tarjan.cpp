@@ -23,7 +23,10 @@ struct Tarjan
     // Use dfn[] to traverse Disconnected Graph
     // Time Complexity: O(V+E)
     int n; // Num of Node
-    int dfn[MAXN], low[MAXN], belong[MAXN];
+    int ts = 0;   // Time Stamp
+    int dfn[MAXN]; // Dfs Order
+    int low[MAXN];
+    int belong[MAXN]; // Componet ID
     bool vis[MAXN];
     vector<int> edges[MAXN];
     stack<int> s;
@@ -33,9 +36,7 @@ struct Tarjan
     {
         this->n = n;
         this->cnt = 0;
-        memset(dfn, 0, sizeof(dfn));
-        memset(low, 0, sizeof(low));
-        memset(belong, 0, sizeof(belong));
+        this->ts = 0;
         memset(vis, 0, sizeof(vis));
     }
     
@@ -46,7 +47,6 @@ struct Tarjan
     
     void dfs(int pre, int now) 
     {
-        static int ts = 0;   // time stamp
         vis[now] = true;
         s.emplace(now);
         low[now] = dfn[now] = ++ts;
