@@ -33,3 +33,9 @@
 *.exe
 *.out
 *.app
+
+# Temp Files
+tempCodeRunnerFile
+tempCodeRunnerFile.c
+tempCodeRunnerFile.cpp
+tempCodeRunnerFile.h

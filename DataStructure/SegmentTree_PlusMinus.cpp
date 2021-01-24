@@ -118,7 +118,7 @@ struct SegmentTree
 int main(void)
 {
     // Problem ID: Luogu P3368
-    // Link:https://www.luogu.com.cn/problem/P3368
+    // Link: https://www.luogu.com.cn/problem/P3368
     int n, m;
     cin >> n >> m;
     ios::sync_with_stdio(false);

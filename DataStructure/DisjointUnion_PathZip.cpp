@@ -4,8 +4,10 @@
  * @FilePath            : /CodeShelf/DataStructure/DisjointUnion_PathZip.cpp
  * @Forward Declaration : None
  * @Discription         : 
- *  Search: O(1)
- *  Union: O(logN)
+ *  Disjoint Union
+ *  Time Complexity:
+ *      Search: O(1)
+ *      Union: O(logN)
  */
 
 #include <iostream>

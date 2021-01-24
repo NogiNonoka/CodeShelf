@@ -17,3 +17,6 @@
 - 2020.12.09 Add Tarjan
 
 #### Network Flow
+
+- 2021.01.23 Add Edmonds-Karp
+- 2021.01.24 Add Dicnic
