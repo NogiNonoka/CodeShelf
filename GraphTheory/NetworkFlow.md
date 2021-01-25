@@ -17,4 +17,9 @@
 - 多路增广
 - 当前弧优化
 
+##### ISAP (Improved Shortest Augment Path)
+
+- 当前弧优化
+- GAP 优化
+
 ##### Minimum Cost Maximum Flow 费用流

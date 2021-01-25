@@ -6,13 +6,14 @@
  * @Discription         : 
  *  Segment Tree
  *  Node Change: Plus Minus
- *  Range Change: Plus Minus / Maximum Minimum
+ *  Range Change: Plus Minus
  *  Time Complexity: O(NlogN)
  */
 
 #include <iostream>
 #include <algorithm>
 #include <cstring>
+#define int long long
 using namespace std;
 const int MAXN = 5e6 + 7;
 
@@ -33,9 +34,11 @@ struct SegmentTree
         root = new Node;
     }
 
-    void UpdateNode(Node *now)
+    void update(Node *now)
     {
-        now->val = now->lson->val + now->rson->val;
+        now->val = now->lson->val + now->rson->val
+                 + now->lson->tag * (now->lson->right - now->lson->left + 1)
+                 + now->rson->tag * (now->rson->right - now->rson->left + 1);
     }
 
     void build(int l, int r, Node *now)
@@ -55,15 +58,15 @@ struct SegmentTree
         now->rson = new Node;
         build(l, mid, now->lson);
         build(mid + 1, r, now->rson);
-        UpdateNode(now);
+        update(now);
         now->tag = 0;
     }
 
     void pushdown(Node *now)
     {
+        now->val += now->tag * (now->right - now->left + 1);
         if (now->left == now->right)
         {
-            now->val += now->tag;
             now->tag = 0;
             return;
         }
@@ -79,7 +82,6 @@ struct SegmentTree
             now->tag += tg;
             return;
         }
-        int mid = (now->left + now->right) >> 1;
         if (r <= now->lson->right)
             rangeAdd(l, r, now->lson, tg);
         else if (l >= now->rson->left)
@@ -89,6 +91,7 @@ struct SegmentTree
             rangeAdd(l, now->lson->right, now->lson, tg);
             rangeAdd(now->rson->left, r, now->rson, tg);
         }
+        update(now);
     }
 
     int query(int l, int r, Node *now)
@@ -97,32 +100,27 @@ struct SegmentTree
         if (now->left == l && now->right == r)
         {
             pushdown(now);
-            res += now->val;
-            return res;
+            return now->val;
         }
         pushdown(now);
-        int mid = (now->left + now->right) >> 1;
         if (r <= now->lson->right)
-            res += query(l, r, now->lson);
+            return query(l, r, now->lson);
         else if (l >= now->rson->left)
-            res += query(l, r, now->rson);
+            return query(l, r, now->rson);
         else 
-        {
-            res += query(l, now->lson->right, now->lson);
-            res += query(now->rson->left, r, now->rson);
-        }
+            return query(l, now->lson->right, now->lson) + query(now->rson->left, r, now->rson);
         return res;
     }
 }stree;
 
-int main(void)
+int32_t main(void)
 {
     // Problem ID: Luogu P3368
     // Link: https://www.luogu.com.cn/problem/P3368
-    int n, m;
-    cin >> n >> m;
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
+    int n, m;
+    cin >> n >> m;
     for (int i = 1; i <= n; ++i)
     {
         cin >> stree.data[i];
@@ -135,9 +133,9 @@ int main(void)
         cin >> t;
         if (t == 2)
         {
-            int x;
-            cin >> x;
-            cout << stree.query(x, x, stree.root) << endl;
+            int x, y;
+            cin >> x >> y;
+            cout << stree.query(x, y, stree.root) << endl;
         }
         else 
         {
@@ -146,4 +144,5 @@ int main(void)
             stree.rangeAdd(x, y, stree.root, k);
         }
     }
+    return 0;
 }
