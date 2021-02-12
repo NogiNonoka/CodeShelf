@@ -56,6 +56,7 @@ struct DijkstraPQ
     {
         memset(dis, 0x3f, sizeof(dis));
         priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > que;
+        // priority_queue greater<>() top is smallest
         que.push({0, s});
         dis[s] = 0;
         while (!que.empty())

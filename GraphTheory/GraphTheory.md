@@ -9,7 +9,6 @@
 #### Shortest Path
 
 - 2020.11.13 Add Dijkstra (Priority Queue)
-
 - 2020.11.13 Add BellmanFord (Queue)
 
 #### Strongly Connected Components

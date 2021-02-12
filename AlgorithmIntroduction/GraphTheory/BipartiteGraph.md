@@ -1,7 +1,5 @@
 ## 图论——二分图 (Bipartite Graph)
 
-[TOC]
-
 ---
 
 ### Hungary 算法

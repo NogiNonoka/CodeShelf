@@ -73,7 +73,7 @@ This Constants which you Used should be defined in your Template;
 
 ├─DataStructure
 
-├─DynamicPrograming
+├─DynamicProgramming
 
 ├─GraphTheory
 

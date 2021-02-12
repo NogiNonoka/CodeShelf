@@ -25,6 +25,7 @@ struct SegmentTree
         Node *lson, *rson;
         int val;
         int tag;
+        Node(): lson(nullptr), rson(nullptr) {}
     } *root;
 
     int data[MAXN];
@@ -54,8 +55,10 @@ struct SegmentTree
             return;
         }
         int mid = (l + r) >> 1;
-        now->lson = new Node;
-        now->rson = new Node;
+        if (now->lson == nullptr)
+            now->lson = new Node;
+        if (now->rson == nullptr)
+            now->rson = new Node;
         build(l, mid, now->lson);
         build(mid + 1, r, now->rson);
         update(now);
@@ -115,8 +118,8 @@ struct SegmentTree
 
 int32_t main(void)
 {
-    // Problem ID: Luogu P3368
-    // Link: https://www.luogu.com.cn/problem/P3368
+    // Problem ID: Luogu P3372 (Range Query) Luogu P3368 (Node Query)
+    // Link: https://www.luogu.com.cn/problem/P3372
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
     int n, m;

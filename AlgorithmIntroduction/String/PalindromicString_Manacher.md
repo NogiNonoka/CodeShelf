@@ -5,10 +5,6 @@ tags: "Algorithm"
 
 ## 回文字符串 (Palindromic String)
 
-[TOC]
-
----
-
 ### Manacher 算法
 
 #### 算法知识
@@ -65,5 +61,3 @@ tags: "Algorithm"
         //返回Len[i]中的最大值-1即为原串的最长回文子串额长度  
 	}
 ```
-
-* * *

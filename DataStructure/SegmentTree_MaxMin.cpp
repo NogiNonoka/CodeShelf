@@ -6,7 +6,7 @@
  * @Discription         : 
  *  Segment Tree
  *  Node Change: Max Min
- *  Range Change: Max Min (all change to new val)
+ *  Range Change: Max Min (change to new val)
  *  Time Complexity: O(NlogN)
  */
 
@@ -26,6 +26,7 @@ struct SegmentTreeMaxMin
         Node *lson, *rson;
         int maxi, mini;
         int maxtag, mintag;
+        Node(): lson(nullptr), rson(nullptr) {};
     } *root;
 
     void init()
@@ -54,8 +55,10 @@ struct SegmentTreeMaxMin
             return;
         }
         int mid = (l + r) >> 1;
-        now->lson = new Node;
-        now->rson = new Node;
+        if (now->lson == nullptr)
+            now->lson = new Node;
+        if (now->rson == nullptr)
+            now->rson = new Node;
         build(l, mid, now->lson);
         build(mid + 1, r, now->rson);
         update(now);
@@ -94,10 +97,10 @@ struct SegmentTreeMaxMin
         now->rson->maxtag = max(now->rson->maxtag, now->maxtag);
         now->rson->mintag = min(now->rson->mintag, now->mintag);
     }
-
+    
     pair<int, int> query(int l, int r, Node *now)
     {
-        pair<int, int> ans;
+        pair<int, int> ans; // Range [l, r] Max && Min
         ans.first = 0; ans.second = INF;
         if (now->left == l && now->right == r)
         {
@@ -146,15 +149,15 @@ int ans[MAXN];
 
 int32_t main(void)
 {
-    // Problem ID: HDU 5861 (TLE)
+    // Problem ID: HDU 5861 (TLE -> AC)
     // Link: http://acm.hdu.edu.cn/showproblem.php?pid=5861
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
     int n, m;
+    mtree.init(); // init once
     while (cin >> n >> m)
     {
         memset(ans, 0, sizeof(ans));
-        mtree.init();
         mtree.build(1, n - 1, mtree.root);
         for (int i = 1; i <= n - 1; ++i)
             cin >> val[i];
@@ -173,9 +176,8 @@ int32_t main(void)
                 ans[j] += val[i];
         }
         for (int i = 1; i <= m; ++i)
-            cout << ans[i] << " ";
-        cout << endl;
-        mtree.clear(mtree.root);
+            cout << ans[i] << endl;
+        // mtree.clear(mtree.root);
     }
     return 0;
 }
