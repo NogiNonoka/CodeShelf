@@ -55,6 +55,7 @@ Data: 2020 - 11 - 09
 #define int long long 
 #define double long double
 const int MAXN = ;
+const int MAXE = ;
 const int MOD = ;
 const int INF = ;
 const double eps = ;

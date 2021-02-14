@@ -60,7 +60,7 @@ function dfs(int pos, bool condition, bool limit)
 
 ##### Analysis
 
-- 前缀和思想，处理区间 $[1,\ b] - [1,\ a]$。
+- 前缀和思想，处理区间 $[1,\ b] - [1,\ a - 1]$。
 
 ##### Code
 

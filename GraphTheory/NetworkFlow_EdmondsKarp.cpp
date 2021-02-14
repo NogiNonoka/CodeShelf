@@ -24,7 +24,7 @@ struct EdmondsKarp
     // Find Max Flow in nonnegative Graph
     // Time Complexity: O(VE^2)
     int s, t; // Start && End
-    int num;  // Num of Nodes
+    int n;  // Num of Nodes
     int capacity[MAXN][MAXN]; // Adjacency Matrix
     int flow[MAXN][MAXN];
 
@@ -52,7 +52,7 @@ struct EdmondsKarp
         while (!q.empty())
         {
             int now = q.front(); q.pop();
-            for (int i = 1; i <= num; ++i)
+            for (int i = 1; i <= n; ++i)
             {
                 if (!res[i] && flow[now][i] < capacity[now][i])
                 {
@@ -92,13 +92,13 @@ int32_t main(void)
     cin.tie(0); cout.tie(0);
     ek.init();
     int m;
-    cin >> ek.num >> m >> ek.s >> ek.t;
+    cin >> ek.n >> m >> ek.s >> ek.t;
     for (int i = 1; i <= m; ++i)
     {
         int u, v, w;
         cin >> u >> v >> w;
         ek.addEdge(u, v, w);
     }
-    cout << ek.edmondskarp();
+    cout << ek.edmondskarp() << endl;
     return 0;
 }

@@ -1,43 +1,38 @@
 /*
  * @Author              : NogiNonoka
- * @Date                : 2021-01-24 15:41:54
- * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_Dicnic.cpp
+ * @Date                : 2021-02-15 00:37:49
+ * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_ISAP.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Network Flow
- *  Dicnic
- *  Time Complexity: O(V^2E)
+ *  ISAP (Improved Shortest Augumenting Path)
  */
 
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <queue>
-#define int long long
+#include <bits/stdc++.h>
 using namespace std;
-const int MAXN = 5E2 + 7;
-const int MAXE = 5E3 + 7;
+#define int long long
+const int MAXN = 5e2 + 7;
+const int MAXE = 1e5 + 7;
 const int INF = 0x3f3f3f3f;
 
-struct Dicnic
+struct ISAP
 {
-    // Dicnic Algorithm
-    // Find Max Flow in nonnegative Graph
-    // Time Complexity: O(V^2E)
+    // ISAP Algorithm
+    // BFS once
     // Edge add twice for Reverse Edge
     struct Edge
     {
         int to;
         int val;
         int nxt;
-    }edge[MAXE * 2];
+    }edge[MAXE];
 
     int cntEdge;
     int head[MAXN];
 
     void init()
     {
-        cntEdge = -1; // edge 0 ^ 1 = reverse edge 1
+        cntEdge = -1;
         memset(head, -1, sizeof(head));
     }
 
@@ -50,35 +45,36 @@ struct Dicnic
         head[u] = cntEdge;
     }
 
-    int n;
-    int s, t;
-    int dep[MAXN]; // depth in BFS 
+    int n; // num of nodes
+    int s, t; // source & sink
+    int dep[MAXN]; // depth in BFS dep[t] = 1;
     int arc[MAXN]; // arc optimization
+    int gap[MAXN]; // gap (num of dep) optimization
 
-    bool bfs()
+    void bfs()
     {
         memset(dep, -1, sizeof(dep));
+        memset(gap, 0, sizeof(gap));
         queue<int> q;
-        dep[s] = 0;
-        arc[s] = head[s];
-        q.push(s);
+        q.push(t);
+        dep[t] = 0;
+        arc[t] = head[t];
+        ++gap[0];
         while (!q.empty())
         {
             int now = q.front(); q.pop();
             for (int i = head[now]; ~i; i = edge[i].nxt)
             {
                 int to = edge[i].to;
-                if (dep[to] == -1 && edge[i].val > 0)
+                if (dep[to] == -1)
                 {
                     dep[to] = dep[now] + 1;
                     arc[to] = head[to];
+                    ++gap[dep[to]];
                     q.push(to);
-                    if (to == t)
-                        return true;
                 }
             }
         }
-        return false;
     }
 
     int dfs(int now, int flow)
@@ -86,32 +82,43 @@ struct Dicnic
         if (now == t)
             return flow;
         int res = 0;
-        for (int i = arc[now]; (~i) && flow; i = edge[i].nxt)
+        for (int i = arc[now]; ~i; i = edge[i].nxt)
         {
             arc[now] = i;
             int to = edge[i].to;
-            if (dep[to] == dep[now] + 1 && edge[i].val > 0)
+            if (dep[to] + 1 == dep[now] && edge[i].val > 0)
             {
                 int nxtFlow = dfs(to, min(flow, edge[i].val));
-                if (nxtFlow == 0)
-                    dep[to] = -1;
-                edge[i].val -= nxtFlow;
-                edge[i ^ 1].val += nxtFlow;
-                flow -= nxtFlow;
-                res += nxtFlow;
+                if (nxtFlow)
+                {
+                    edge[i].val -= nxtFlow;
+                    edge[i ^ 1].val += nxtFlow;
+                    flow -= nxtFlow;
+                    res += nxtFlow;
+                }
+                if (flow == 0)
+                    return res;
             }
         }
+        if (--gap[dep[now]] == 0)
+            dep[s] = n;
+        ++dep[now];
+        ++gap[dep[now]];
         return res;
     }
 
-    int dicnic()
+    int isap()
     {
         int ans = 0;
-        while (bfs())
+        bfs();
+        while (dep[s] < n)
+        {
+            memcpy(arc, head, sizeof(head));
             ans += dfs(s, INF);
+        }
         return ans;
     }
-}dic;
+}isap;
 
 int32_t main(void)
 {
@@ -119,16 +126,16 @@ int32_t main(void)
     // Link: https://www.luogu.com.cn/problem/P3376
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
-    dic.init();
-    int m;
-    cin >> dic.n >> m >> dic.s >> dic.t;
+    isap.init();
+    int n, m, s, t;
+    cin >> isap.n >> m >> isap.s >> isap.t;
     for (int i = 1; i <= m; ++i)
     {
         int u, v, w;
         cin >> u >> v >> w;
-        dic.addEdge(u, v, w);
-        dic.addEdge(v, u, 0);
+        isap.addEdge(u, v, w);
+        isap.addEdge(v, u, 0);
     }
-    cout << dic.dicnic();
+    cout << isap.isap() << endl;
     return 0;
 }
