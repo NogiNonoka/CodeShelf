@@ -20,6 +20,9 @@ const int INF = 0x3f3f3f3f;
 
 struct SegmentTreeMaxMin
 {
+    // Node Change: Max Min
+    // Range Change: Max Min (change to new val)
+    // Time Complexity: O(NlogN)
     struct Node
     {
         int left, right;

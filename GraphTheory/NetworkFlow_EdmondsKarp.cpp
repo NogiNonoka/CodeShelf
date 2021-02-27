@@ -4,7 +4,7 @@
  * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_EdmondsKarp.cpp
  * @Forward Declaration : None
  * @Discription         : 
- *  Network Flow
+ *  Network Flow (Maximum Flow)
  *  Edmonds Karp (Adjacency Matrix)
  *  Time Complexity: O(VE^2)
  */

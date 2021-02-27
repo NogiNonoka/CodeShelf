@@ -1,14 +1,10 @@
-## 图论——二分图 (Bipartite Graph)
+## Bipartite Graph
 
----
+### 相关概念
 
-### Hungary 算法
-
-#### 前置知识
-
-1. 二分图：顶点集 $V$ 可分割为两个**互不相交**的子集，并且图中每条边依附的两个顶点都分属于这两个互不相交的子集，两个子集内的顶点不相邻。
+- 二分图：顶点集 $V$ 可分割为两个**互不相交**的子集，并且图中每条边依附的两个顶点都分属于这两个互不相交的子集，两个子集内的顶点不相邻。
    - 判定定理：一个图是二分图当且仅当没有长度为奇数的圈。
-2. 二分图匹配
+- 二分图匹配
    - 匹配：任意两条边都没有公共顶点的边的集合称为匹配。
    - 最大匹配：包含边的个数最多的一组匹配。
    - 完美匹配：如果一个匹配中，图中的**每个顶点**都和图中某条边相关联，则称此匹配为**完全匹配**，也称作**完备匹配**。
@@ -17,39 +13,53 @@
      - 不属于匹配的边比匹配中的边多一条。
      - 对增广路进行取反操作可以得到一个更大的匹配 $M'$。
      - 若 $M$ 为图 $G$ 的最大匹配当且仅当不存在相对于 $M$ 的增广路。
+- 二分图最大匹配转化为最大流，二分图最大权完美匹配转化为费用流。
 
-#### 算法知识
+### 二分图最大匹配
 
-1. 本质：$DFS$ 找增广路，求二分图最大匹配
-2. 时间复杂度 $O(VE)$
+#### Hungarian 算法
 
-#### 算法模板
+##### Algorithm
 
-```cpp
-struct Hungary
+- 原理：DFS 找增广路，求二分图最大匹配
+- 时间复杂度 $O(VE)$
+
+##### Template
+
+```C++
+struct Hungarian
 {
-    int n, m; // Num of Set 1 && 2
-    bool graph[MAXN][MAXN]; // Adj Matrix
-    int lnk[MAXN];
+    // Find Maximum Matching on Unweighted Bipartite Graph
+    // Time Complexity: O(VE)
+    int n, m; // cnt of set1 and set2
+    vector<int> graph[MAXN]; 
+    int match[MAXN]; // partner of set2
     bool vis[MAXN];
 
-    void init()
+    void init(int n, int m)
     {
-        memset(graph, 0, sizeof(graph));
-        memset(lnk, 0, sizeof(lnk));
-        memset(vis, 0, sizeof(vis));
+        this->n = n;
+        this->m = m;
+        for (int i = 1; i <= n; ++i)
+            graph[i].clear();
+        memset(match, 0, sizeof(int) * m);
+    }
+
+    void addEdge(int x, int y)
+    {
+        graph[x].push_back(y);
     }
 
     bool dfs(int x)
     {
-        for (int i = 1; i <= m; ++i)
+        for (auto i : graph[x])
         {
-            if (graph[x][i] && !vis[i])
+            if (vis[i] == false)
             {
                 vis[i] = true;
-                if (lnk[i] == 0 || dfs(lnk[i]))
+                if (match[i] == 0 || dfs(match[i]))
                 {
-                    lnk[i] = x;
+                    match[i] = x;
                     return true;
                 }
             }
@@ -57,12 +67,12 @@ struct Hungary
         return false;
     }
 
-    int hungary()
+    int hungarian()
     {
         int ans = 0;
         for (int i = 1; i <= n; ++i)
         {
-            memset(vis, 0, sizeof(vis));
+            memset(vis, 0, sizeof(bool) * n);
             if (dfs(i))
                 ans++;
         }
@@ -71,24 +81,37 @@ struct Hungary
 }hgy;
 ```
 
-### Ho - Kashyap 算法
+#### Ho - Kashyap 算法
 
-#### 算法知识
+##### Algorithm
 
-1. 原理：沿 $BFS$ 路径找增广路
-2. 时间复杂度：$O(\sqrt{V} E)$
+- 原理：沿 BFS 路径找增广路；
+- 时间复杂度：$O(\sqrt{V} E)$
 
-#### 算法模板
+##### Template
 
-```cpp
-struct HK
+```C++
+struct HoKashyap
 {
+    // Find Maximum Matching on Unweighted Bitpartite Graph
+    // Time Complexity: O(V^(1/2)E)
     int cntx, cnty; // Num of Set 1 && Set 2
     vector<int> graph[MAXN]; // Edge Set 1 to Set 2
-    int lnkx[MAXN], lnky[MAXN];
+    int matchx[MAXN], matchy[MAXN];
     int depx[MAXN], depy[MAXN]; // Depth
-    bool vis[MAXN];
     int dep;
+    bool vis[MAXN];
+
+    void init()
+    {
+        memset(matchx, -1, sizeof(matchx));
+        memset(matchy, -1, sizeof(matchy));
+    }
+
+    void addEdge(int u, int v)
+    {
+        graph[u].push_back(v);
+    }
 
     bool bfs()
     {
@@ -96,10 +119,10 @@ struct HK
         dep = INF;
         memset(depx, -1, sizeof(depx));
         memset(depy, -1, sizeof(depy));
-        memset(vis, 0, sizeof(vis));
+        memset(vis, false, sizeof(vis));
         for (int i = 1; i <= cntx; ++i)
         {
-            if (lnkx[i] == -1)
+            if (matchx[i] == -1)
             {
                 q.push(i);
                 depx[i] = 0;
@@ -117,12 +140,12 @@ struct HK
                 if (depy[nxt] == -1)
                 {
                     depy[nxt] = depx[now] + 1;
-                    if (lnky[nxt] == -1)
+                    if (matchy[nxt] == -1)
                         dep = depy[nxt];
                     else
                     {
-                        depx[lnky[nxt]] = depy[nxt] + 1;
-                        q.push(lnky[nxt]);
+                        depx[matchy[nxt]] = depy[nxt] + 1;
+                        q.push(matchy[nxt]);
                     }
                 }
             }
@@ -138,12 +161,12 @@ struct HK
             if (!vis[nxt] && depy[nxt] == depx[now] + 1)
             {
                 vis[nxt] = true;
-                if(lnky[nxt] != -1 && depy[nxt] == dep)
+                if(matchy[nxt] != -1 && depy[nxt] == dep)
                     continue;
-                if(lnky[nxt] == -1 || dfs(lnky[nxt]))
+                if(matchy[nxt] == -1 || dfs(matchy[nxt]))
                 {
-                    lnky[nxt] = now;
-                    lnkx[now] = nxt;
+                    matchy[nxt] = now;
+                    matchx[now] = nxt;
                     return true;
                 }
             }
@@ -151,26 +174,167 @@ struct HK
         return false;
     }
 
-    int Ho_Kashyap()
+    int hokashyap()
     {
         int ans = 0;
-        memset(lnkx, -1, sizeof(lnkx));
-        memset(lnky, -1, sizeof(lnky));
         while (bfs())
-        {
             for (int i = 1; i <= cntx; ++i)
-            {
-                if (lnkx[i] == -1 && dfs(i))
+                if (matchx[i] == -1 && dfs(i))
                     ans++;
-            }
-        }
         return ans;
     }
 }hk;
 ```
 
-### Kuhn－Munkres 算法
+### 二分图完备匹配下的最大权匹配
 
-#### 算法知识
+#### Kuhn－Munkres 算法
 
-1. 解决问题：求二分图完备匹配下的最大权匹配。
+##### Algorithm
+
+- 顶标
+- 相等子图
+  - 对于某组可行顶标，如果其相等子图存在完美匹配，那么，该匹配就是原二分图的最大权完美匹配。
+
+##### Template
+
+```C++
+struct KuhnMunkres
+{
+    // Bitpartite Graph (Perfect Matching's Maximum Matching)
+    // add 0 weight Edge for Perfect Matching exsist
+    // add -w weight Edge for Minimum Matching
+    // add log(w) weight for Muiltiple Maximum Matching
+    // Time Complexity: O(V^3)
+    // index from 0 to n - 1
+    // add Edge (u - 1, v - 1, w)
+    int n;
+    int cntx;
+    int cnty;
+    int pre[MAXN];    // 连接右集合的左点
+    bool visx[MAXN];
+    bool visy[MAXN];
+    int lx[MAXN];
+    int ly[MAXN];
+    int g[MAXN][MAXN];
+    int slack[MAXN];
+    int matchx[MAXN];
+    int matchy[MAXN];
+    queue<int> q;
+    int res;
+
+    void init(int cntx, int cnty)
+    {
+        this->cntx = cntx;
+        this->cnty = cnty;
+        n = max(cntx, cnty);
+        res = 0;
+        for (int i = 0; i < n; ++i)
+            fill(g[i], g[i] + n, -INF);
+        memset(matchx, -1, sizeof(int) * n);
+        memset(matchy, -1, sizeof(int) * n);
+        fill(lx, lx + n, -INF);
+    }
+
+    void addEdge(int u, int v, int w)
+    {
+        // g[u][v] = max(0, w); // 负值还不如不匹配 因此设为 0不影响
+        g[u][v] = max(g[u][v], w); // 考虑重边
+    }
+
+    bool check(int v)
+    {
+        visy[v] = true;
+        if (matchy[v] != -1)
+        {
+            q.push(matchy[v]);
+            visx[matchy[v]] = true; // in S
+            return false;
+        }
+        // 找到新的未匹配点 更新匹配点 pre 数组记录着 非匹配边 上与之相连的点
+        while (v != -1)
+        {
+            matchy[v] = pre[v];
+            swap(v, matchx[pre[v]]);
+        }
+        return true;
+    }
+
+    void bfs(int i)
+    {
+        while (!q.empty())
+            q.pop();
+        q.push(i);
+        visx[i] = true;
+        while (true)
+        {
+            while (!q.empty())
+            {
+                int u = q.front(); q.pop();
+                for (int v = 0; v < n; v++)
+                {
+                    if (!visy[v])
+                    {
+                        int delta = lx[u] + ly[v] - g[u][v];
+                        if (slack[v] >= delta)
+                        {
+                            pre[v] = u;
+                            if (delta)
+                                slack[v] = delta;
+                            else if (check(v))
+                            // delta=0 代表有机会加入相等子图 找增广路
+                            // 找到就 return 重建交错树
+                                return;
+                        }
+                    }
+                }
+            }
+            // 没有增广路 修改顶标
+            int a = INF;
+            for (int j = 0; j < n; j++)
+                if (!visy[j])
+                    a = min(a, slack[j]);
+            for (int j = 0; j < n; j++)
+            {
+                if (visx[j]) // S
+                    lx[j] -= a;
+                if (visy[j]) // T
+                    ly[j] += a;
+                else // T'
+                    slack[j] -= a;
+            }
+            for (int j = 0; j < n; j++)
+                if (!visy[j] && slack[j] == 0 && check(j))
+                    return;
+        }
+    }
+
+    void solve()
+    {
+        // 初始顶标
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                lx[i] = max(lx[i], g[i][j]);
+        for (int i = 0; i < n; i++)
+        {
+            memset(slack, 0x3f, sizeof(int) * n);
+            memset(visx, false, sizeof(bool) * n);
+            memset(visy, false, sizeof(bool) * n);
+            bfs(i);
+        }
+        for (int i = 0; i < n; i++)
+        {
+            // if add extra Edge
+            // if (g[i][matchx[i]] > 0)
+                // res += g[i][matchx[i]];
+            // else
+                // matchx[i] = -1;
+            res += g[i][matchx[i]];
+        }
+        cout << res << "\n";
+        for (int i = 0; i < cnty; i++)
+            cout << matchy[i] + 1 << " ";
+        cout << "\n";
+    }
+}km;
+```

@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-02-01 23:35:51
- * @FilePath            : /CodeShelf/MathTheory/Prime_Eular.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Prime_eular.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Prime (Euler)
@@ -17,7 +17,9 @@ int prime[MAXN];
 
 void getPrime(int n)
 {
-    
+    // Get Prime in Range [0, n)
+    // use prime[0] as cnt
+    // Time Complexity: O(N)
     memset(vis, 0, sizeof(vis));
     memset(prime, 0, sizeof(prime));
     prime[0] = 0;

@@ -4,7 +4,7 @@
  * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_ISAP.cpp
  * @Forward Declaration : None
  * @Discription         : 
- *  Network Flow
+ *  Network Flow (Maximum Flow)
  *  ISAP (Improved Shortest Augumenting Path)
  */
 

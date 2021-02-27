@@ -4,7 +4,7 @@
  * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_Dicnic.cpp
  * @Forward Declaration : None
  * @Discription         : 
- *  Network Flow
+ *  Network Flow (Maximum Flow)
  *  Dicnic
  *  Time Complexity: O(V^2E)
  */

@@ -20,7 +20,7 @@ Data: 2020 - 11 - 09
 
 - Do **Not** Use `#define` for Constants, using `const` instead;
 
-- Do **Not** Use `typedef` for Variable Types, using `template<typename >` or just use `int` and `double`;
+- Do **Not** Use `typedef` for Variable Types, using `template<typename >` or use `int` and `double`;
 
 ### Comments
 
@@ -65,6 +65,32 @@ const int DIRY[] = {};
 ```
 
 This Constants which you Used should be defined in your Template;
+
+### Example
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+// #define int long long
+// #define double long double
+// #define endl "\n"
+// const int MAXN = ;
+// const int MAXE = ;
+// const int MOD = ;
+// const int INF = ;
+// const double eps = ;
+// const double PI = acos(-1);
+// const int DIRX[] = {};
+// const int DIRY[] = {};
+
+int32_t main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0); cout.tie(0);
+    
+    return 0;
+}
+```
 
 ## Catalogue
 

@@ -19,6 +19,9 @@ const int MAXN = 5e6 + 7;
 
 struct SegmentTree
 {
+    // Node Change: Plus Minus
+    // Range Change: Plus Minus
+    // Time Complexity: O(NlogN)
     struct Node
     {
         int left, right;

@@ -1,9 +1,4 @@
----
-title: "[GraphTheory]Prim&&Kruskal"
-tags: "Algorithm"
----
-
-## 图论——最小生成树 (MST)
+## Minimum Spanning Tree
 
 ### Kruskal
 

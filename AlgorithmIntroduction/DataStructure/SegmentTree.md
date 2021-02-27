@@ -1,13 +1,4 @@
----
-title: "[DataStructure]SegementTree"
-tags: "Algorithm"
----
-
-[TOC]
-
-## 数据结构——线段树 (Segment Tree)
-
-* * *
+## Segment Tree
 
 ### 线段树
 
