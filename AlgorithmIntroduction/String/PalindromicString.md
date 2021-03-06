@@ -1,17 +1,15 @@
-/*
- * @Author              : NogiNonoka
- * @Date                : 2021-02-28 17:13:32
- * @FilePath            : \CodeShelf\String\PalindromicString_Manacher.cpp
- * @Forward Declaration : None
- * @Discription         : 
- *  Manacher Algorithm (Longest Palindromic Substring)
- *  Time Complexity: O(N)
- */
+## 回文字符串 (Palindromic String)
 
-#include <bits/stdc++.h>
-using namespace std;
-const int MAXN = 5e7 + 7;
+### Manacher 算法
 
+#### 算法知识
+
+- 求解最长回文子串算法 Manacher；
+- 时间复杂度：$O(N)$
+
+#### 算法模板
+
+```C++
 struct Manacher
 {
     // Manacher Algorithm (Longest Palindromic Substring)
@@ -51,16 +49,4 @@ struct Manacher
         return ans;
     }
 }ps;
-
-int32_t main(void)
-{
-    // Problem ID: Luogu P3805
-    // Link: https://www.luogu.com.cn/problem/P3805
-    ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
-    string s;
-    cin >> s;
-    ps.pre(s);
-    cout << ps.manacher() - 1 << endl;
-    return 0;
-}
+```

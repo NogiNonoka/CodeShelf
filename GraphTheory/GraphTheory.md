@@ -20,3 +20,9 @@
 - 2021.01.23 Add Edmonds-Karp
 - 2021.01.24 Add Dicnic
 - 2021.02.15 Add ISAP
+
+#### Bitpartite Graph
+
+- 2021.02.24 Add Hungrian
+- 2021.02.24 Add Ho-Kashyap
+- 2021.02.26 Add Kuhn-Munkres
