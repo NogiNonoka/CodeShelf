@@ -344,7 +344,7 @@ struct ISAP
 
 链接：[CF1473F - Strange Set](https://codeforces.com/contest/1473/problem/F)
 
-##### Pronlem
+##### Problem
 
 - 给定长度为 $n$ 的数组 $a$ 与其权值 $b$;
 - 定义一个 Strange Set，若选择 $i$ ，则需要选择 $\forall j \in [1,\ i - 1] ,\ a_i \% a_j = 0$。

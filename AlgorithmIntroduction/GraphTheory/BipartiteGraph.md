@@ -15,9 +15,131 @@
      - 若 $M$ 为图 $G$ 的最大匹配当且仅当不存在相对于 $M$ 的增广路。
 - 二分图最大匹配转化为最大流，二分图最大权完美匹配转化为费用流。
 
-### 二分图最大匹配
+### 解决问题
 
-#### Hungarian 算法
+#### 最大独立集（最小点覆盖）
+
+- 最大独立集 = 顶点个数 - 最小点覆盖
+- 最小点覆盖通过**网络流**或**二分图最大匹配求得**
+
+##### Problem
+
+[2021 Training League 01](https://ac.nowcoder.com/acm/contest/12606/B)
+
+##### Analysis
+
+- 给定 $n$ 个点，边表示端点不能同时出现在所选集合；
+- 最大独立集问题，将其转化为最小点覆盖通过最大流或二分图最大匹配问题；
+- 删除被匹配的点后，根据二分图最大匹配的性质，图中不存在可行增广路，求得最小点覆盖，则此时剩余点为最大独立集。
+
+##### Code
+
+```C++
+#include <bits/stdc++.h>
+using namespace std;
+const int MAXN = 5e2 + 7;
+
+int n;
+string s[MAXN];
+
+struct Hungarian
+{
+    // Find Maximum Matching on Unweighted Bipartite Graph
+    // Time Complexity: O(VE)
+    int n, m; // cnt of set1 and set2
+    vector<int> graph[MAXN]; 
+    int match[MAXN]; // partner of set2
+    bool vis[MAXN];
+
+    void init(int n, int m)
+    {
+        this->n = n;
+        this->m = m;
+        for (int i = 1; i <= n; ++i)
+            graph[i].clear();
+        memset(match, 0, sizeof(int) * m);
+    }
+
+    void addEdge(int x, int y)
+    {
+        graph[x].push_back(y);
+    }
+
+    bool dfs(int x)
+    {
+        for (auto i : graph[x])
+        {
+            if (vis[i] == false)
+            {
+                vis[i] = true;
+                if (match[i] == 0 || dfs(match[i]))
+                {
+                    match[i] = x;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    int hungarian()
+    {
+        int ans = 0;
+        for (int i = 1; i <= n; ++i)
+        {
+            memset(vis, 0, sizeof(bool) * n);
+            if (dfs(i))
+                ans++;
+        }
+        return ans;
+    }
+}hg;
+
+void build(int n)
+{
+    hg.init(n ,n);
+    for (int i = 1; i <= n; ++i)
+    {
+        for (int j = i + 1; j <= n; ++j)
+        {
+            int cnt = 0;
+            for (int p = 0; p < s[i].length(); ++p)
+            {
+                if (s[i][p] != s[j][p])
+                {
+                    ++cnt;
+                }
+            }
+            if (cnt == 2)
+            {
+                hg.addEdge(i, j);
+                hg.addEdge(j, i);
+            }
+        }
+    }
+}
+
+int32_t main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+        cin >> s[i];
+    build(n);
+    int ans = n - hg.hungarian() / 2;
+    // for (int i = 1; i <= n; ++i)
+    //     cout << hg.match[i] << " ";
+    // cout << endl;
+    cout << ans << endl;
+    return 0;
+}
+```
+
+### Bipartite Graph's Maximum Matching
+
+#### Hungarian Algorithm
 
 ##### Algorithm
 
@@ -81,7 +203,7 @@ struct Hungarian
 }hgy;
 ```
 
-#### Ho - Kashyap 算法
+#### Ho - Kashyap Algorithm
 
 ##### Algorithm
 
@@ -186,9 +308,9 @@ struct HoKashyap
 }hk;
 ```
 
-### 二分图完备匹配下的最大权匹配
+### Maximum Weight Perfect Matching
 
-#### Kuhn－Munkres 算法
+#### Kuhn－Munkres Algorithm
 
 ##### Algorithm
 
