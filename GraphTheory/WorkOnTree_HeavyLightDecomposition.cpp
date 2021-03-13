@@ -17,7 +17,7 @@ const int MAXN = 5e6 + 7;
 
 struct HeavyLightDecomposition
 {
-    // Get Lowest Common Ancestor
+    // Get Least Common Ancestor
     // with Unrooted Tree, Add Edge Twice
     // Time Complexity: O(NlogN+M(logN)^2)
     int n;
