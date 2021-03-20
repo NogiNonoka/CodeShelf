@@ -37,7 +37,7 @@ inline int qmul(int a, int b, int p)
 - 素数定理
 - 估计不超过 $x$ 的素数个数：$\pi (x) \sim \dfrac{n}{\ln (n)}$
 
-#### Eular
+#### Euler
 
 - 欧拉筛（线性筛）
 - 时间复杂度：$O(N)$
