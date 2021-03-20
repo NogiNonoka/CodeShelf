@@ -2,8 +2,8 @@
  * @Author              : NogiNonoka
  * @Date                : 2021-03-18 21:25:12
  * @FilePath            : /CodeShelf/MathTheory/ChinaRemainderTheorem.cpp
- * @LastEditTime        : 2021-03-18 22:52:36
- * @Forward Declaration : EXGCD
+ * @LastEditTime        : 2021-03-20 18:21:48
+ * @Forward Declaration : Quick Mul & Extended GCD
  * @Discription         : 
  *  Solve Congruent Liner Equation Group: x = a (mod p)
  */
@@ -64,7 +64,7 @@ int crt(vector<int> &a, vector<int> &p)
     for (int i = 0; i < p.size(); ++i)
     {
         int n = m / p[i];
-        int x = inv(n, p[i]); // nx = 1 (mod p)
+        int x = inv(n, p[i]); //Solve nx = 1 (mod p) based on exgcd
         ans = (ans + qmul(qmul(n, x, m), (a[i] % m + m) % m, m)) % m;
         // ans = (ans + n * x % m * a[i] % m) % m;
     }

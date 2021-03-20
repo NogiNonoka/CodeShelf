@@ -23,7 +23,7 @@ void getPrime(int n)
     memset(vis, 0, sizeof(vis));
     memset(prime, 0, sizeof(prime));
     prime[0] = 0;
-    // Use index 0 as a Cnt
+    // Use index 0 as Cnt
     for (int i = 2; i < n; i++)
     {
         if (!vis[i])

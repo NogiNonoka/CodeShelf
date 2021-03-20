@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-02-23 14:00:31
- * @FilePath            : /CodeShelf/GraphTheory/BitpartiteGraph_KuhnMunkres.cpp
+ * @FilePath            : /CodeShelf/GraphTheory/BipartiteGraph_KuhnMunkres.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Bitpartite Graph (Perfect Matching's Maximum Matching)
@@ -26,7 +26,7 @@ struct KuhnMunkres
     // Bitpartite Graph (Perfect Matching's Maximum Matching)
     // add 0 weight Edge for Perfect Matching exsist
     // add -w weight Edge for Minimum Matching
-    // add log(w) weight for Muiltiple Maximum Matching
+    // add log(w) weight for Multiple Maximum Matching
     // Time Complexity: O(V^3)
     // index from 0 to n - 1
     // add Edge (u - 1, v - 1, w)

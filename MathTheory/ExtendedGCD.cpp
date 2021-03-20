@@ -2,7 +2,7 @@
  * @Author              : NogiNonoka
  * @Date                : 2021-03-18 16:58:46
  * @FilePath            : /CodeShelf/MathTheory/EXGCD.cpp
- * @LastEditTime        : 2021-03-18 21:54:01
+ * @LastEditTime        : 2021-03-20 17:29:15
  * @Forward Declaration : None
  * @Discription         : 
  *  Solve Congruent Liner Equation: ax + by == gcd(a, b), ax = gcd(a, b) (mod b)
@@ -41,7 +41,7 @@ int exgcd(int a, int b, int &x, int &y)
 
 int inv(int a, int p)
 {
-    // Calc Inversion a^{-1} (mod p)
+    // Calc Inverse Element a^{-1} (mod p)
     int x, y;
     int d = exgcd(a, p, x, y);
     return d == 1 ? (x % p + p) % p : -1;
