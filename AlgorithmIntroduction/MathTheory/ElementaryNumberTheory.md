@@ -133,6 +133,7 @@ $$a^{p - 1} \equiv 1 (mod \ p)$$
 
 #### Extended GCD (Congruent Liner Equation)
 
+- 裴蜀定理：不定方程 $ax + by = gcd(a,b)$ 有解，可扩展到 $n$ 元情况；
 - 线性同余方程
   - 形如：$ax \equiv c \ (mod \ b) \Leftrightarrow ax + by = c$
   - 方程有解的条件：$gcd(a,b) | c$；
@@ -140,7 +141,7 @@ $$a^{p - 1} \equiv 1 (mod \ p)$$
   - 解不定方程 $ax + by = gcd(a, b)$；
   - 判断并求解不定方程 $ax + by = c$；
     - 若 $a \ b$ 不互质，将方程转化为 $\dfrac{a}{gcd(a, b)}x + \dfrac{b}{gcd(a,b)} = \dfrac{c}{gcd(a, b)}$；
-    - 求最小非负整数解：记 $t = \dfrac{b}{gcd(a, b)}$，$x = (x \% t + t) \% t$，带回方程求 $y$。
+    - 求最小非负整数解：记 $t = \dfrac{b}{gcd(a, b)}$，则$x = (x \% t + t) \% t$，代回方程求 $y$。
 
 ```C++
 int exgcd(int a, int b, int &x, int &y)
