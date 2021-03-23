@@ -12,7 +12,8 @@
 ##### Shortest Path
 
 - 2020.11.13 Add Dijkstra (Priority Queue)
-- 2020.11.13 Add BellmanFord (Queue)
+- 2020.11.13 Add Bellman-Ford (Queue)
+- 2021.03.23 Add Difference Constraints (Bellman-Ford)
 
 ##### Strongly Connected Components
 
