@@ -35,8 +35,8 @@ struct DijkstraPQ
 
     void init()
     {
-        cntEdge = 0;
-        memset(head, 0, sizeof(head));
+        cntEdge = -1;
+        memset(head, -1, sizeof(head));
     }
 
     void addEdge(int u, int v, int w)
@@ -48,11 +48,10 @@ struct DijkstraPQ
         head[u] = cntEdge;
     }
 
-    int s; // start pos
-    int n, m; // num of Nodes && num of Edges
+    int n; // num of Nodes
     int dis[MAXN]; // dis from s to each node
 
-    void dijkstra()
+    void dijkstra(int s)
     {
         memset(dis, 0x3f, sizeof(dis));
         priority_queue<pair<int, int>, vector<pair<int, int> >, greater<pair<int, int> > > que;
@@ -66,7 +65,7 @@ struct DijkstraPQ
             que.pop();
             if (nowval > dis[now])
                 continue;
-            for (int i = head[now]; i; i = edge[i].nxt)
+            for (int i = head[now]; ~i; i = edge[i].nxt)
             {
                 int nxt = edge[i].to;
                 int nxtval = edge[i].val;
@@ -98,15 +97,17 @@ int32_t main(void)
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
     dij.init();
-    cin >> dij.n >> dij.m >> dij.s;
-    for (int i = 1; i <= dij.m; ++i)
+    int n, m, s;
+    cin >> n >> m >> s;
+    dij.n = n;
+    for (int i = 1; i <= m; ++i)
     {
         int u, v, w;
         cin >> u >> v >> w;
         dij.addEdge(u, v, w);
     }
-    dij.dijkstra();
-    for (int i = 1; i <= dij.n; ++i)
+    dij.dijkstra(s);
+    for (int i = 1; i <= n; ++i)
         cout << dij.dis[i] << " ";
     cout << endl;
     return 0;

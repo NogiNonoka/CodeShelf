@@ -1,27 +1,39 @@
 /*
  * @Author              : NogiNonoka
- * @Date                : 2020-11-13 20:11:53
- * @FilePath            : /CodeShelf/GraphTheory/ShortestPath_BellmanFord_Queue.cpp
- * @Forward Declaration : None
+ * @Date                : 2021-03-23 15:59:31
+ * @FilePath            : /CodeShelf/GraphTheory/DifferenceConstraints.cpp
+ * @Forward Declaration : Bellman - Ford (Queue)
  * @Discription         : 
- *  Shortest Path
- *  Bellman Ford (Queue Ver)
+ *  Difference Constraints
  *  Time Complexity: O(VE)
+ *  For Minimum Solution:
+ *      x - y >= c, (x, y, -c);
+ *      x - y <= c, (y, x, c);
+ *      x == y, (a, b, 0) && (b, a, 0);
+ *  For Maximum Solution:
+ *      x - y >= c, (y, x, c);
+ *      x - y <= c, (x, y, -c);
+ *      x == y, (a, b, 0) && (b, a, 0);
  */
 
-#include <iostream>
-#include <cstring>
-#include <queue>
+#include <bits/stdc++.h>
 using namespace std;
-#define int long long
-#define endl "\n"
-const int MAXN = 1e4 + 7;
-const int MAXE = 5e5 + 7;
+// #define int long long
+// #define double long double
+// #define endl "\n"
+const int MAXN = 5E3 + 7;
+const int MAXE = 1E4 + 7;
+// const int MOD = ;
+// const int INF = ;
+// const double eps = ;
+// const double PI = acos(-1);
+// const int DIRX[] = {};
+// const int DIRY[] = {};
 
 struct BellmanFordQ
 {
-    // Shortest Path in Directed Graph
-    // Edge in Undirected Graph should add twice
+    // Difference Constraints
+    // Add a source node to each other node (0, i, 0)
     // Time Complexity: O(VE)
     struct Edge
     {
@@ -41,7 +53,17 @@ struct BellmanFordQ
 
     void addEdge(int u, int v, int w)
     {
-        ++cntEdge;
+        /* For Minimum Solution
+            x - y >= c, (x, y, -c);
+            x - y <= c, (y, x, c);
+            x == y, (a, b, 0) && (b, a, 0);
+        */
+        /* For Maximum Solution
+            x - y >= c, (y, x, c);
+            x - y <= c, (x, y, -c);
+            x == y, (a, b, 0) && (b, a, 0);
+        */ 
+        cntEdge++;
         edge[cntEdge].nxt = head[u];
         edge[cntEdge].to = v;
         edge[cntEdge].val = w;
@@ -71,7 +93,7 @@ struct BellmanFordQ
                 {
                     dis[nxt] = val + dis[now];
                     cnt[nxt] = cnt[now] + 1;
-                    if (cnt[nxt] >= n)
+                    if (cnt[nxt] >= n) // add a source node
                         return false; // exist negitive-weight circle
                     if (!vis[nxt])
                     {
@@ -84,7 +106,7 @@ struct BellmanFordQ
                 {
                     dis[nxt] = val + dis[now];
                     cnt[nxt] = cnt[now] + 1;
-                    if (cnt[nxt] >= n)
+                    if (cnt[nxt] >= n) // add a source node
                         return false; // exist positive-weight circle
                     if (!vis[nxt])
                     {
@@ -110,27 +132,36 @@ struct BellmanFordQ
 #endif
 }bfq;
 
-int32_t main(void)
-{
-    // Problem ID: Luogu P3371
-    // Link: https://www.luogu.com.cn/problem/P3371
+signed main(void)
+{   // Problem ID: Luogu P5960
+    // Link: https://www.luogu.com.cn/problem/P5960
     ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
+    cin.tie(nullptr); cout.tie(nullptr);
+    int n, m;
+    cin >> n >> m;
     bfq.init();
-    cin >> bfq.n >> bfq.m >> bfq.s;
-    for (int i = 1; i <= bfq.m; ++i)
+    bfq.n = n + 1; // add a source node 0
+    for (int i = 1; i <= n; ++i)
     {
-        int u, v, w;
+        bfq.addEdge(0, i, 0);
+    }
+    int u, v, w;
+    for (int i = 1; i <= m; ++i)
+    {
         cin >> u >> v >> w;
-        bfq.addEdge(u, v, w);
+        bfq.addEdge(v, u, w);
     }
-    bfq.bellmanford();
-    for (int i = 1; i <= bfq.n; ++i)
+    if (bfq.bellmanford(0))
     {
-        if (bfq.dis[i] > (1LL << 31) - 1)
-            bfq.dis[i] = (1LL << 31) - 1;
-        cout << bfq.dis[i] << " ";
+        for (int i = 1; i <= n; ++i)
+        {
+            cout << bfq.dis[i] << " ";
+        }
+        cout << endl;
     }
-    cout << endl;
+    else 
+    {
+        cout << "NO" << endl;
+    }
     return 0;
 }
