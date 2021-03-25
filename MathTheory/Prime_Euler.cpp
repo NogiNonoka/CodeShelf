@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-02-01 23:35:51
- * @FilePath            : /CodeShelf/MathTheory/Prime_eular.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Prime_Euler.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Prime (Euler)
@@ -15,7 +15,7 @@ const int MAXN = 1e5 + 7;
 bool vis[MAXN];
 int prime[MAXN];
 
-void getPrime(int n)
+void primeSieve(int n, int *prime, bool *vis)
 {
     // Get Prime in Range [0, n)
     // use prime[0] as cnt

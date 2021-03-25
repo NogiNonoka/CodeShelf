@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-20 18:15:30
- * @FilePath            : /CodeShelf/MathTheory/LinearInverseElement_ConbinatorialNumber.cpp
+ * @FilePath            : /CodeShelf/MathTheory/ElementaryNumberTheory_LinearInverseElement_ConbinatorialNumber.cpp
  * @Forward Declaration : None
  * @Discription         : 
  */
@@ -22,26 +22,30 @@ using namespace std;
 
 int fac[MAXN], inv[MAXN], facinv[MAXN];
 
-void getInv(int n)
+void getInv(int n, int *inv, int p = MOD)
+{
+    inv[1] = 1;
+    for (int i = 2; i < n; i++)
+        inv[i] = (p - p / i) * inv[p % i] % p;
+}
+
+void getFac(int n, int *fac, int *facinv, int p = MOD)
 {
     fac[0] = 1;
     for (int i = 1; i < n; i++)
-        fac[i] = fac[i - 1] * i % MOD;
+        fac[i] = fac[i - 1] * i % p;
    	// Factorial
-    inv[1] = 1;
-    for (int i = 2; i < n; i++)
-        inv[i] = (MOD - MOD / i) * inv[MOD % i] % MOD;
     facinv[0] = 1;
     for (int i = 1; i < n; i++)
-        facinv[i] = inv[i] * facinv[i - 1] % MOD;
+        facinv[i] = inv[i] * facinv[i - 1] % p;
     // Factorials' Muiltiplicative Inverse
 }
 
-int C(int n, int m)
+int C(int n, int m, int p = MOD)
 {
     if (m > n)
         return 0;
-    return fac[n] * facinv[m] % MOD * facinv[n - m] % MOD;
+    return fac[n] * facinv[m] % p * facinv[n - m] % p;
 }
 // C_n^m
 

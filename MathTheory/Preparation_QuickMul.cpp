@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-20 18:17:28
- * @FilePath            : /CodeShelf/MathTheory/QuickMul.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Preparation_QuickMul.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Quick Mul
@@ -23,7 +23,7 @@ using namespace std;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-int qmul(int a, int b, int p)
+int qmul(int a, int b, int p = MOD)
 {
     // Calc a * b % p
     int ans = 0;

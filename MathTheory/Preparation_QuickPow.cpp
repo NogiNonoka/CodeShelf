@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-20 17:04:50
- * @FilePath            : /CodeShelf/MathTheory/QuickPow.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Preparation_QuickPow.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Quick Pow
@@ -22,13 +22,13 @@ using namespace std;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-int qpow(int a, int b)
+int qpow(int a, int b, int p = MOD)
 {
-    // Calc a ^ b % MOD
+    // Calc a ^ b % p
     int ans = 1;
-    for (; b; b >>= 1, a = a * a % MOD)
+    for (; b; b >>= 1, a = a * a % p)
         if (b & 1)
-            ans = ans * a % MOD;
+            ans = ans * a % p;
     return ans;
 }
 
