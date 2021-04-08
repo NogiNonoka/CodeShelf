@@ -1,8 +1,8 @@
 /*
  * @Author              : Tilnel
  * @Date                : 2021-03-22 20:33:30
- * @FilePath            : /CodeShelf/MathTheory/Simplex.cpp
- * @LastEditTime        : 2021-03-22 20:35:32
+ * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_Simplex.cpp
+ * @LastEditTime        : 2021-03-27 13:39:24
  * @Forward Declaration : None
  * @Discription         : 
  */
@@ -14,6 +14,7 @@ const int MAXN = 1000 + 7;
 const int MAXM = 1000 + 7;
 const double EPS = 1e-8;
 
+int n, m;
 int id[MAXN + MAXM] = {};
 double v[MAXN] = {};
 double a[MAXM][MAXN] = {};

@@ -1,8 +1,8 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-18 16:58:46
- * @FilePath            : /CodeShelf/MathTheory/EXGCD.cpp
- * @LastEditTime        : 2021-03-20 17:29:15
+ * @FilePath            : /CodeShelf/MathTheory/ElementaryNumberTheory_ExtendedGCD.cpp
+ * @LastEditTime        : 2021-03-27 14:45:12
  * @Forward Declaration : None
  * @Discription         : 
  *  Solve Congruent Liner Equation: ax + by == gcd(a, b), ax = gcd(a, b) (mod b)
@@ -49,7 +49,7 @@ int inv(int a, int p)
 
 signed main(void)
 {
-    // Problem ID: POJ2142
+    // Problem ID: POJ 2142
     // Link: http://poj.org/problem?id=2142
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);

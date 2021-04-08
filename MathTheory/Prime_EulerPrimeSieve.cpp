@@ -36,3 +36,11 @@ void primeSieve(int n, int *prime, bool *vis)
         }
     }
 }
+
+signed main(void)
+{
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr); cout.tie(nullptr);
+    
+    return 0;
+}

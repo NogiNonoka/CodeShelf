@@ -117,7 +117,7 @@ struct SegmentTree
             return query(l, now->lson->right, now->lson) + query(now->rson->left, r, now->rson);
         return res;
     }
-}stree;
+} stree;
 
 int32_t main(void)
 {
