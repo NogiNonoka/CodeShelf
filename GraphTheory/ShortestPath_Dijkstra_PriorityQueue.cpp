@@ -88,7 +88,7 @@ struct DijkstraPQ
         }
     }
 #endif
-}dij;
+} dij;
 
 int32_t main(void)
 {

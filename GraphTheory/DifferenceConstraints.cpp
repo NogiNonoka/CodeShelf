@@ -130,7 +130,7 @@ struct BellmanFordQ
         }
     }
 #endif
-}bfq;
+} bfq;
 
 signed main(void)
 {   // Problem ID: Luogu P5960

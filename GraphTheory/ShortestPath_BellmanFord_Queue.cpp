@@ -108,7 +108,7 @@ struct BellmanFordQ
         }
     }
 #endif
-}bfq;
+} bfq;
 
 int32_t main(void)
 {

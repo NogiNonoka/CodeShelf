@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-02-22 20:56:18
- * @FilePath            : /CodeShelf/GraphTheory/BitpartiteGraph_HoKashyap.cpp
+ * @FilePath            : /CodeShelf/GraphTheory/BipartiteGraph_HoKashyap.cpp
  * @Forward Declaration : None
  * @Discription         : 
  *  Bitpartite Graph (Maximum Matching)
@@ -115,7 +115,7 @@ struct HoKashyap
                     ans++;
         return ans;
     }
-}hk;
+} hk;
 
 int32_t main(void)
 {

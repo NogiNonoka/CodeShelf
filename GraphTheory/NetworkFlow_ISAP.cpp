@@ -118,7 +118,7 @@ struct ISAP
         }
         return ans;
     }
-}isap;
+} isap;
 
 int32_t main(void)
 {

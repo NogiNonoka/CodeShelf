@@ -2,7 +2,7 @@
  * @Author              : beta_dust, NogiNonoka
  * @Date                : 2021-03-22 20:52:45
  * @FilePath            : /CodeShelf/DataStructure/SparseTable.cpp
- * @LastEditTime        : 2021-04-09 18:26:57
+ * @LastEditTime        : 2021-04-09 18:29:25
  * @Forward Declaration : None
  * @Discription         : 
  *  Sparse Table
@@ -59,7 +59,7 @@ struct SparseTable
         // can't change to [l + (1 << k)][k]
         // [l, l + 2 ^ k - 1] + [r - 2 ^ k + 1, r] != [l, r]
     }
-}stable;
+} stable;
 
 signed main(void)
 {

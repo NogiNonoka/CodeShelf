@@ -74,7 +74,7 @@ struct Hungarian
         }
         return ans;
     }
-}hg;
+} hg;
 
 int32_t main(void)
 {

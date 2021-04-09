@@ -82,7 +82,7 @@ struct EdmondsKarp
         }
         return ans;
     }
-}ek;
+} ek;
 
 int32_t main(void)
 {

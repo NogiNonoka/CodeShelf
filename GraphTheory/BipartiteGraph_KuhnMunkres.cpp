@@ -158,7 +158,7 @@ struct KuhnMunkres
             cout << matchy[i] + 1 << " ";
         cout << "\n";
     }
-}km;
+} km;
 
 int32_t main(void)
 {

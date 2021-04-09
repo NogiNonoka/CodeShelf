@@ -56,10 +56,7 @@ struct Prim
                     dis[i] = graph[nxt][i];
         }
     }
-
-#ifdef DEBUG
-#endif
-}pr;
+} pr;
 
 int main(void)
 {

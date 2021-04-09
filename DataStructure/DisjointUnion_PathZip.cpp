@@ -64,7 +64,7 @@ struct DisjointUnion
                 rnk[y] += 1;
         }
     }
-}dsu;
+} dsu;
 
 int main(void)
 {

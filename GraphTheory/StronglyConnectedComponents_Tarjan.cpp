@@ -81,7 +81,7 @@ struct Tarjan
             if (!dfn[i])
                 dfs(i, i);
     }
-}trj;
+} trj;
 
 bool flg[MAXN];
 

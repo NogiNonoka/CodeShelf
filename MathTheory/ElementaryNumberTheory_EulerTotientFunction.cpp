@@ -75,4 +75,5 @@ signed main(void)
     cin.tie(nullptr);
     cout.tie(nullptr);
 
-    return
+    return 0;
+}

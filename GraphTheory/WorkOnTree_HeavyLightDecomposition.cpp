@@ -100,7 +100,7 @@ struct HeavyLightDecomposition
         }
         return (dep[x] > dep[y] ? y : x);
     }
-}hld;
+} hld;
 
 int main(void)
 {

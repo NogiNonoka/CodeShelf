@@ -111,7 +111,7 @@ struct Dicnic
             ans += dfs(s, INF);
         return ans;
     }
-}dic;
+} dic;
 
 int32_t main(void)
 {
