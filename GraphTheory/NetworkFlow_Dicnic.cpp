@@ -86,9 +86,8 @@ struct Dicnic
         if (now == t)
             return flow;
         int res = 0;
-        for (int i = arc[now]; (~i) && flow; i = edge[i].nxt)
+        for (int &i = arc[now]; (~i) && flow; i = edge[i].nxt)
         {
-            arc[now] = i;
             int to = edge[i].to;
             if (dep[to] == dep[now] + 1 && edge[i].val > 0)
             {
