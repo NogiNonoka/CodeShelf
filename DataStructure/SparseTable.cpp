@@ -2,7 +2,7 @@
  * @Author              : beta_dust, NogiNonoka
  * @Date                : 2021-03-22 20:52:45
  * @FilePath            : /CodeShelf/DataStructure/SparseTable.cpp
- * @LastEditTime        : 2021-03-22 22:14:20
+ * @LastEditTime        : 2021-04-09 18:26:57
  * @Forward Declaration : None
  * @Discription         : 
  *  Sparse Table
@@ -47,7 +47,7 @@ struct SparseTable
         {
             for (int i = 1; i + (1 << j) - 1 <= n; ++i)
             {
-                st[i][j] = max(st[i][j - 1],st[i + (1 << (j - 1))][j - 1]); 
+                st[i][j] = max(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]); 
             }
         }
     }
