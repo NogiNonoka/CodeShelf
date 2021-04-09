@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-04-08 08:14:04
- * @FilePath            : /CodeShelf/DataStructure/PersistmentSegmentTree_kth.cpp
+ * @FilePath            : /CodeShelf/DataStructure/PersistentSegmentTree_kth.cpp
  * @Forward Declaration : None
  * @Discription         : 
  */
@@ -25,8 +25,8 @@ int cnt, root[MAXN];
 
 void update(int l, int r, int &now, int pre, int x)
 {
-    node[++cnt] = node[pre];
-    now = cnt;
+    now = ++cnt;
+    node[cnt] = node[pre];
     node[now].size += 1;
     if (l == r)
         return;
