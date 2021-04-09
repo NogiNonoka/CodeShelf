@@ -1,9 +1,14 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-04-08 08:14:04
- * @FilePath            : /CodeShelf/DataStructure/PersistentSegmentTree_kth.cpp
+ * @FilePath            : /CodeShelf/DataStructure/PersistentSegmentTree_kthQuery.cpp
  * @Forward Declaration : None
  * @Discription         : 
+ *  Persistent Segment Tree
+ *  kth Query (range [l, r] = [1, r] - [1, l - 1])
+ *  Time Complexity:
+ *      Update: O(NlogN)
+ *      Query: O(logN)
  */
 
 #include <iostream>

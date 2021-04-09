@@ -11,3 +11,4 @@
 - 2020.12.10 Add Segment Tree (Range Plus / Minus)
 - 2021.01.26 Add Segment Tree (Range Max / Min)
 - 2021.04.08 Add Persistent Segment Tree (kth Query)
+- 2021.04.09 Add Persistent Segment Tree (Mex Query)
