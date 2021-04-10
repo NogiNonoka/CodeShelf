@@ -1,11 +1,11 @@
 /*
  * @Author              : beta_dust, Tilnel, NogiNonoka
  * @Date                : 2021-03-22 18:57:06
- * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_GaussianElimination.cpp
- * @LastEditTime        : 2021-03-22 22:14:04
+ * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
+ * @LastEditTime        : 2021-04-10 21:30:23
  * @Forward Declaration : None
  * @Discription         : 
- *  Gaussian Elimination
+ *  Gauss Jordan Elimination (High Precision)
  *  Calc n * n matrix's solution
  *  Time Complexity: O(N^2)
  */
@@ -19,12 +19,12 @@ const int MAXN = 103;
 // const int MAXE = ;
 // const int MOD = ;
 // const int INF = ;
-// const double eps = ;
+const double eps = 1e-8;
 // const double PI = acos(-1);
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-struct Gauss
+struct GaussJordanElimination
 {
     int n; // n * n  matrix
     double matrix[MAXN][MAXN];
@@ -41,9 +41,9 @@ struct Gauss
         }
     }
 
-    bool gauss()
+    bool gaussjordan()
     {
-        // Gaussian Elimination
+        // Gauss Jordan Elimination
         // Calc n * n matrix's solution
         // Time Complexity: O(N^2)
         for (int i = 1; i <= n; ++i)
@@ -54,12 +54,11 @@ struct Gauss
                 if (fabs(matrix[j][i]) > fabs(matrix[maxi][i]))
                     maxi = j;
             }
-            for (int j = 1; j <= n + 1; ++j)
-                swap(matrix[i][j], matrix[maxi][j]);
-            if (!matrix[i][i])
+            if (maxi != i)
+                for (int j = 1; j <= n + 1; ++j)
+                    swap(matrix[i][j], matrix[maxi][j]);
+            if (fabs(matrix[i][i]) < eps)
                 return false;
-            // if (!matrix[i][i] && matrix[i][n + 1])
-            //     return false;
             for (int j = 1; j <= n; ++j)
             {
                 if (j != i)
@@ -70,12 +69,13 @@ struct Gauss
                 }
             }
         }
-        // Calc determinant
-        // double det = 1;
-        // for (int i = 1; i <= n; i++)
-        // {
-        //     det *= a[i][i];
-        // }
+        /*  Calc determinant
+            double det = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                det *= a[i][i];
+            }
+        */
         return true;
     }
 
@@ -94,12 +94,8 @@ signed main(void)
     // Link: https://www.luogu.com.cn/problem/P3389
     ge.input();
     if (ge.gauss())
-    {
         ge.output();
-    }
     else
-    {
         printf("No Solution\n");
-    }
     return 0;
 }

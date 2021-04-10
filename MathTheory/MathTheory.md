@@ -16,3 +16,4 @@
 ##### Linear Algebra
 
 - 2021.03.22 Add Gaussian Elimination
+- 2021.04.10 Change Gaussian Elimination to Gauss-Jordan Elimination
