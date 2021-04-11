@@ -34,8 +34,10 @@ struct HoKashyap
     int dep;
     bool vis[MAXN];
 
-    void init()
+    void init(int x, int y)
     {
+        cntx = x;
+        cnty = y;
         memset(matchx, -1, sizeof(matchx));
         memset(matchy, -1, sizeof(matchy));
     }
