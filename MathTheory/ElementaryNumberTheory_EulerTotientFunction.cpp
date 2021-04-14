@@ -4,6 +4,10 @@
  * @FilePath            : /CodeShelf/MathTheory/ElementaryNumberTheory_EulerTotientFunction.cpp
  * @Forward Declaration : Quick Pow
  * @Discription         : 
+ *  Use Euler Theorm calc Inverse Element
+ *  a ^ phi(b) = 1 (mod b)
+ *  phi(b) is NOT minimum order
+ *  Use phi(b)'s divisors calc a ^ div = 1 (mod b) for minimum order (Based on Lagrange theorem - Group theorem)
  */
 #include <bits/stdc++.h>
 using namespace std;
@@ -53,27 +57,26 @@ void phiSieve(int n, int *phi)
     }
 }
 
-int qpow(int a, int b)
+int qpow(int a, int b, int p = MOD)
 {
     // Calc a ^ b % MOD
     int ans = 1;
-    for (; b; b >>= 1, a = a * a % MOD)
+    for (; b; b >>= 1, a = a * a % p)
         if (b & 1)
-            ans = ans * a % MOD;
+            ans = ans * a % p;
     return ans;
 }
 
-void inv(int a, int p)
+int inv(int a, int p)
 {
     // a^phi(p) = 1 (mod p)
-    return qpow(a, phi(p) - 1);
+    return qpow(a, phi(p) - 1, p);
 }
 
 signed main(void)
 {
     ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    cout.tie(nullptr);
+    cin.tie(nullptr); cout.tie(nullptr);
 
     return 0;
 }
