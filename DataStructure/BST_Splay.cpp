@@ -68,10 +68,11 @@ void rotate(int x)
     bool fs = (node[f].ch[1] == x);
     bool gs = (node[g].ch[1] == f);
     bool xs = fs ^ 1;
+    int s = node[x].ch[xs];
     node[g].ch[gs] = x;
     node[x].fa = g;
-    node[f].ch[fs] = node[x].ch[xs];
-    node[node[x].ch[xs]].fa = f;
+    node[f].ch[fs] = s;
+    node[s].fa = f;
     node[x].ch[xs] = f;
     node[f].fa = x;
     update(f); update(x); update(g);
@@ -122,7 +123,7 @@ void insert(int val)
 
 void find(int val)
 {
-    // find node[x].val = val, set root = x
+    // find maximum node[x].val < val, set root = x
     int u = root;
     while (node[u].ch[val > node[u].val] && node[u].val != val)
         u = node[u].ch[val > node[u].val];
@@ -131,7 +132,6 @@ void find(int val)
 
 int precursor(int val)
 {
-    // val exists, return node[u].val < val
     find(val);
     int u = root;
     if (node[u].val < val)
@@ -144,7 +144,6 @@ int precursor(int val)
 
 int succeed(int val)
 {
-    // val exists, return node[u].val > val
     find(val);
     int u = root;
     if (node[u].val > val)
