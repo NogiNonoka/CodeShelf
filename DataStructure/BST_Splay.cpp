@@ -67,11 +67,12 @@ void rotate(int x)
     int g = node[f].fa;
     bool fs = (node[f].ch[1] == x);
     bool gs = (node[g].ch[1] == f);
+    bool xs = fs ^ 1;
     node[g].ch[gs] = x;
     node[x].fa = g;
-    node[f].ch[fs] = node[x].ch[fs ^ 1];
-    node[node[x].ch[fs ^ 1]].fa = f;
-    node[x].ch[fs ^ 1] = f;
+    node[f].ch[fs] = node[x].ch[xs];
+    node[node[x].ch[xs]].fa = f;
+    node[x].ch[xs] = f;
     node[f].fa = x;
     update(f); update(x); update(g);
 }
