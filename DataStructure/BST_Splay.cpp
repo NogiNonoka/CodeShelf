@@ -120,21 +120,23 @@ void insert(int val)
     splay(u, 0);
 }
 
-bool find(int val)
+void find(int val)
 {
     // find node[x].val = val, set root = x
     int u = root;
-    while (u && node[u].val != val)
+    while (node[u].ch[val > node[u].val] && node[u].val != val)
         u = node[u].ch[val > node[u].val];
     splay(u, 0);
-    return u != 0;
 }
 
 int precursor(int val)
 {
     // val exists, return node[u].val < val
-    bool flg = find(val);
-    int u = node[root].ch[0];
+    find(val);
+    int u = root;
+    if (node[u].val < val)
+        return u;
+    u = node[u].ch[0];
     while (u && node[u].ch[1])
         u = node[u].ch[1];
     return u;
@@ -144,7 +146,10 @@ int succeed(int val)
 {
     // val exists, return node[u].val > val
     find(val);
-    int u = node[root].ch[1];
+    int u = root;
+    if (node[u].val > val)
+        return u;
+    u = node[root].ch[1];
     while (u && node[u].ch[0])
         u = node[u].ch[0];
     return u;
@@ -152,10 +157,10 @@ int succeed(int val)
 
 void remove(int val)
 {
-    bool flg = find(val);
-    if (!flg)
-        return;
+    find(val);
     int u = root;
+    if (node[root].val != val)
+        return;
     if (node[u].cnt > 1)
     {
         node[u].cnt--;
@@ -245,34 +250,15 @@ signed main(void)
             remove(val);
         if (opt == 3)
         {
-            bool flg = find(val);
-            if (!flg)
-                insert(val);
+            find(val);
             cout << node[node[root].ch[0]].size + 1 << endl;
-            if (!flg)
-                remove(val);
         }
         if (opt == 4)
             cout << kthQuery(val) << endl;
         if (opt == 5)
-        {
-            bool flg = find(val);
-            if (!flg)
-                insert(val);
             cout << node[precursor(val)].val << endl;
-            if (!flg)
-                remove(val);
-        }
         if (opt == 6)
-        {
-            bool flg = find(val);
-            if (!flg)
-                insert(val);
             cout << node[succeed(val)].val << endl;
-            if (!flg)
-                remove(val);
-        }
-        
     }
     return 0;
 }
