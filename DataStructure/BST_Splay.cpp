@@ -228,6 +228,8 @@ void print(int x)
 
 signed main(void)
 {
+    // Problem ID: Luogu P3369
+    // Link: https://www.luogu.com.cn/problem/P3369
     ios::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     int T;
@@ -273,27 +275,3 @@ signed main(void)
     }
     return 0;
 }
-
-/*
-20 
-1 964673
-5 968705
-4 1
-3 964673
-5 965257
-1 915269
-1 53283
-3 964673
-3 53283
-3 53283
-1 162641
-5 973984
-1 948119
-2 915269
-2 53283
-6 959161
-1 531821
-1 967521
-2 531821
-1 343410
-*/
