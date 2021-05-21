@@ -16,7 +16,7 @@ using namespace std;
 const int MAXN = 1e5 + 7;
 // const int MAXE = ;
 // const int MOD = ;
-// const int INF = ;
+const int INF = 0x3f3f3f3f;
 // const double eps = ;
 // const double PI = acos(-1);
 // const int DIRX[] = {};
@@ -27,9 +27,7 @@ const int MAXN = 1e5 + 7;
 struct Node
 {
     int fa, ch[2];
-    int cnt;
-    int size;
-    int val;
+    int val, cnt, size;
 } node[MAXN];
 
 int cnt, root;
@@ -39,11 +37,9 @@ void init()
     // set cnt = 0, root will start from 1
     for (int i = 0;i <= cnt; ++i)
     {
-        node[cnt].fa = 0;
-        node[cnt].ch[0] = node[cnt].ch[1] = 0;
-        node[cnt].cnt = 0;
-        node[cnt].size = 0;
+        node[cnt].fa = node[cnt].ch[0] = node[cnt].ch[1] = 0;
         node[cnt].val = 0;
+        node[cnt].cnt = node[cnt].size = 0;
     }
     cnt = 0;
     root = 0;
@@ -115,8 +111,7 @@ void insert(int val)
         node[u].fa = f;
         node[u].ch[0] = node[u].ch[1] = 0;
         node[u].val = val;
-        node[u].cnt = 1;
-        node[u].size = 1;
+        node[u].cnt = node[u].size = 1;
     }
     splay(u, 0);
 }
@@ -132,6 +127,7 @@ void find(int val)
 
 int ranking(int val)
 {
+    // Caution: Check val exist
     find(val);
     return node[node[root].ch[0]].size + 1;
 }
@@ -148,7 +144,7 @@ int precursor(int val)
     return u;
 }
 
-int succeed(int val)
+int succeeding(int val)
 {
     find(val);
     int u = root;
@@ -173,7 +169,7 @@ void remove(int val)
         return;
     }
     int lson = precursor(val);
-    int rson = succeed(val);
+    int rson = succeeding(val);
     if (!lson && !rson)
     {
         root = 0;
@@ -201,9 +197,9 @@ void remove(int val)
 
 int kthQuery(int k)
 {
-    if (node[root].size < k)
-        return -1;
     int u = root;
+    if (node[u].size < k)
+        return INF;
     while (true)
     {
         int lson = node[u].ch[0];
@@ -260,7 +256,7 @@ signed main(void)
         if (opt == 5)
             cout << node[precursor(val)].val << endl;
         if (opt == 6)
-            cout << node[succeed(val)].val << endl;
+            cout << node[succeeding(val)].val << endl;
     }
     return 0;
 }
