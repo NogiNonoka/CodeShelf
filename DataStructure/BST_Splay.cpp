@@ -130,6 +130,12 @@ void find(int val)
     splay(u, 0);
 }
 
+int ranking(int val)
+{
+    find(val);
+    return node[node[root].ch[0]].size + 1;
+}
+
 int precursor(int val)
 {
     find(val);
@@ -158,7 +164,7 @@ void remove(int val)
 {
     find(val);
     int u = root;
-    if (node[root].val != val)
+    if (node[u].val != val)
         return;
     if (node[u].cnt > 1)
     {
@@ -248,10 +254,7 @@ signed main(void)
         if (opt == 2)
             remove(val);
         if (opt == 3)
-        {
-            find(val);
-            cout << node[node[root].ch[0]].size + 1 << endl;
-        }
+            cout << ranking(val) << endl;
         if (opt == 4)
             cout << kthQuery(val) << endl;
         if (opt == 5)
