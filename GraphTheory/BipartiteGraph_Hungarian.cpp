@@ -3,7 +3,7 @@
  * @Date                : 2021-02-21 21:04:10
  * @FilePath            : /CodeShelf/GraphTheory/BipartiteGraph_Hungarian.cpp
  * @Forward Declaration : None
- * @Discription         : 
+ * @Discription         :
  *  Bipartite Graph (Maximum Matching)
  *  Hungrian
  *  Time Complexity: O(VE)
@@ -23,38 +23,28 @@ const int MAXN = 1e5 + 7;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-struct Hungarian
-{
+struct Hungarian {
     // Find Maximum Matching on Unweighted Bipartite Graph
     // Time Complexity: O(VE)
     int n, m; // cnt of set1 and set2
-    vector<int> graph[MAXN]; 
+    vector<int> graph[MAXN];
     int match[MAXN]; // partner of set2
     bool vis[MAXN];
 
-    void init(int n, int m)
-    {
+    void init(int n, int m) {
         this->n = n;
         this->m = m;
-        for (int i = 1; i <= n; ++i)
-            graph[i].clear();
+        for (int i = 1; i <= n; ++i) graph[i].clear();
         memset(match, 0, sizeof(int) * m);
     }
 
-    void addEdge(int x, int y)
-    {
-        graph[x].push_back(y);
-    }
+    void addEdge(int x, int y) { graph[x].push_back(y); }
 
-    bool dfs(int x)
-    {
-        for (auto i : graph[x])
-        {
-            if (vis[i] == false)
-            {
+    bool dfs(int x) {
+        for (auto i : graph[x]) {
+            if (vis[i] == false) {
                 vis[i] = true;
-                if (match[i] == 0 || dfs(match[i]))
-                {
+                if (match[i] == 0 || dfs(match[i])) {
                     match[i] = x;
                     return true;
                 }
@@ -63,30 +53,26 @@ struct Hungarian
         return false;
     }
 
-    int hungarian()
-    {
+    int hungarian() {
         int ans = 0;
-        for (int i = 1; i <= n; ++i)
-        {
+        for (int i = 1; i <= n; ++i) {
             memset(vis, 0, sizeof(bool) * n);
-            if (dfs(i))
-                ans++;
+            if (dfs(i)) ans++;
         }
         return ans;
     }
 } hg;
 
-int32_t main(void)
-{
+signed main(void) {
     // Problem ID: Luogu P3386
     // Link: https://www.luogu.com.cn/problem/P3386
     ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
     int n, m, e;
     cin >> n >> m >> e;
     hg.init(n, m);
-    for (int i = 1; i <= e; ++i)
-    {
+    for (int i = 1; i <= e; ++i) {
         int u, v;
         cin >> u >> v;
         hg.addEdge(u, v);

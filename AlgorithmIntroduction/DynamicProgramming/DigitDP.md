@@ -117,7 +117,7 @@ void solve()
     cout << ans << endl;
 }
 
-int32_t main(void)
+signed main(void)
 {
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);
@@ -210,7 +210,7 @@ int solve(int x)
     return dfs(len - 1, 0, 0, true);
 }
 
-int32_t main()
+signed main()
 {
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);

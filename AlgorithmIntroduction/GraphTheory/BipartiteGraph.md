@@ -119,7 +119,7 @@ void build(int n)
     }
 }
 
-int32_t main(void)
+signed main(void)
 {
     ios::sync_with_stdio(false);
     cin.tie(0);

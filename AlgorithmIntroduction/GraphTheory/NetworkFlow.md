@@ -462,7 +462,7 @@ int a[MAXN];
 bool vis[100 + 7];
 int ans;
 
-int32_t main(void)
+signed main(void)
 {
     ios::sync_with_stdio(false);
     cin.tie(0); cout.tie(0);

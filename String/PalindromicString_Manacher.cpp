@@ -1,9 +1,9 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-02-28 17:13:32
- * @FilePath            : \CodeShelf\String\PalindromicString_Manacher.cpp
+ * @FilePath            : /CodeShelf/String/PalindromicString_Manacher.cpp
  * @Forward Declaration : None
- * @Discription         : 
+ * @Discription         :
  *  Manacher Algorithm (Longest Palindromic Substring)
  *  Time Complexity: O(N)
  */
@@ -12,37 +12,30 @@
 using namespace std;
 const int MAXN = 5e7 + 7;
 
-struct Manacher
-{
+struct Manacher {
     // Manacher Algorithm (Longest Palindromic Substring)
     // Time Complexity: O(N)
     string text;
     int cnt[MAXN];
-    
-    void pre(string &s)
-    {
+
+    void pre(string& s) {
         text = "*#";
-        for (auto ch : s)
-        {
+        for (auto ch : s) {
             text += ch;
             text += '#';
         }
     }
 
-    int manacher()
-    {
+    int manacher() {
         int ans = 0;
         int mid = 0, maxr = 0;
-        for (int i = 0; i < text.size(); ++i)
-        {
+        for (int i = 0; i < text.size(); ++i) {
             if (i < maxr)
                 cnt[i] = min(cnt[mid * 2 - i], maxr - i);
-            else 
+            else
                 cnt[i] = 1;
-            while (text[i + cnt[i]] == text[i - cnt[i]])
-                ++cnt[i];
-            if (i + cnt[i] > maxr)
-            {
+            while (text[i + cnt[i]] == text[i - cnt[i]]) ++cnt[i];
+            if (i + cnt[i] > maxr) {
                 maxr = i + cnt[i];
                 mid = i;
             }
@@ -50,14 +43,14 @@ struct Manacher
         }
         return ans;
     }
-}ps;
+} ps;
 
-int32_t main(void)
-{
+signed main(void) {
     // Problem ID: Luogu P3805
     // Link: https://www.luogu.com.cn/problem/P3805
     ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
     string s;
     cin >> s;
     ps.pre(s);

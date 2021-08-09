@@ -1,9 +1,9 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2020-11-14 20:32:45
- * @FilePath            : \CodeShelf\String\StringMatch_Knuth-Morris-Pratt.cpp
+ * @FilePath            : /CodeShelf/String/StringMatch_Knuth-Morris-Pratt.cpp
  * @Forward Declaration : None
- * @Discription         : 
+ * @Discription         :
  *  String Compare
  *  Knuth-Morris-Pratt
  *  Time Complexity: O(N+M)
@@ -14,8 +14,7 @@
 using namespace std;
 const int MAXN = 1e5 + 7;
 
-struct KMP
-{
+struct KMP {
     // Serach t in s and return pos
     // Time Complexity: O(N+M)
     string s;
@@ -23,36 +22,31 @@ struct KMP
 
     int nxt[MAXN];
 
-    void getNext()
-    {
+    void getNext() {
         int j = 0, k = -1;
         nxt[0] = -1;
-        while (j < (int)t.length())
-        {
+        while (j < (int)t.length()) {
             if (k == -1 || t[j] == t[k])
                 nxt[++j] = ++k;
-            else 
+            else
                 k = nxt[k];
         }
     }
 
-    void kmpAllIndex()
-    {
+    void kmpAllIndex() {
         /**
          * @description: print all first index found in s
          * @param {void}
          * @return {void}
-         */        
+         */
         getNext();
         int i = 0, j = 0;
-        while (i < (int)s.length())
-        {
+        while (i < (int)s.length()) {
             if (j == -1 || s[i] == t[j])
                 ++i, ++j;
-            else 
+            else
                 j = nxt[j];
-            if (j == t.length())
-            {
+            if (j == t.length()) {
                 cout << i - j + 1 << endl;
                 j = nxt[j];
             }
@@ -60,35 +54,27 @@ struct KMP
     }
 
     int kmpFirstIndex();
-    
+
     int kmpFirstCount();
 
 #ifdef DEBUG
-    void showNext()
-    {
-        for (int i = 0; i < t.length(); ++i)
-        {
-            cout << t[i] << " ";
-        }
+    void showNext() {
+        for (int i = 0; i < t.length(); ++i) { cout << t[i] << " "; }
         cout << endl;
-        for (int i = 0; i < t.length(); ++i)
-        {
-            cout << nxt[i] << " ";
-        }
+        for (int i = 0; i < t.length(); ++i) { cout << nxt[i] << " "; }
     }
 #endif
-}kmp;
+} kmp;
 
-int main(void)
-{
+int main(void) {
     // Problem: Luogu P3375
     // Link: https://www.luogu.com.cn/problem/P3375
     ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
     cin >> kmp.s >> kmp.t;
     kmp.kmpAllIndex();
     // nxt[i] means t[i - 1]'s LCS
-    for (int i = 0; i < kmp.t.length(); ++i)
-        cout << kmp.nxt[i + 1] << " ";
+    for (int i = 0; i < kmp.t.length(); ++i) cout << kmp.nxt[i + 1] << " ";
     return 0;
 }

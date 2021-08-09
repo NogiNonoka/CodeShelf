@@ -9,9 +9,8 @@ const int INF = 0x3f3f3f3f;
 const int MAXE = 5e3 + 7;
 const int MAXN = 5e2 + 7;
 
-class FlowEdge
-{
-public:
+class FlowEdge {
+  public:
     int u, v;
     int cap, flow = 0;
     FlowEdge(int u, int v, int cap) : u(u), v(v), cap(cap) {}
@@ -25,27 +24,21 @@ int level[MAXN];
 int ptr[MAXE];
 queue<int> q;
 
-void addEdge(int u, int v, int cap)
-{
+void addEdge(int u, int v, int cap) {
     edges.push_back({u, v, cap});
     edges.push_back({v, u, 0});
     adj[u].push_back(tot++);
     adj[v].push_back(tot++);
 }
 
-bool bfs()
-{
-    while (!q.empty())
-    {
+bool bfs() {
+    while (!q.empty()) {
         int u = q.front();
         q.pop();
-        for (int id : adj[u])
-        {
+        for (int id : adj[u]) {
             FlowEdge e = edges[id];
-            if (e.cap - e.flow < 1)
-                continue;
-            if (level[e.v] != -1)
-                continue;
+            if (e.cap - e.flow < 1) continue;
+            if (level[e.v] != -1) continue;
             level[e.v] = level[u] + 1;
             q.push(e.v);
         }
@@ -53,23 +46,17 @@ bool bfs()
     return level[t] != -1;
 }
 
-int dfs(int u, int pushed)
-{
-    if (!pushed)
-        return 0;
-    if (u == t)
-        return pushed;
-    for (int &cid = ptr[u]; cid < (int)adj[u].size(); ++cid)
-    {
+int dfs(int u, int pushed) {
+    if (!pushed) return 0;
+    if (u == t) return pushed;
+    for (int& cid = ptr[u]; cid < (int)adj[u].size(); ++cid) {
         int id = adj[u][cid];
         FlowEdge e = edges[id];
         int v = e.v;
-        if (level[v] != level[u] + 1 || e.cap - e.flow < 1)
-            continue;
+        if (level[v] != level[u] + 1 || e.cap - e.flow < 1) continue;
 
         int delta = dfs(v, min(pushed, e.cap - e.flow));
-        if (!delta)
-            continue;
+        if (!delta) continue;
 
         edges[id].flow += delta;
         edges[id ^ 1].flow -= delta;
@@ -78,43 +65,35 @@ int dfs(int u, int pushed)
     return 0;
 }
 
-int maxFlow()
-{
+int maxFlow() {
     int ret = 0;
-    while (true)
-    {
+    while (true) {
         memset(level, -1, sizeof(level));
         level[s] = 0;
         q.push(s);
 
-        if (!bfs())
-            break;
+        if (!bfs()) break;
 
         memset(ptr, 0, sizeof(ptr));
-        while (true)
-        {
+        while (true) {
             int pushed = dfs(s, INF);
-            if (!pushed)
-                break;
+            if (!pushed) break;
             ret += pushed;
         }
     }
     return ret;
 }
 
-void init()
-{
+void init() {
     scanf("%d%d%d%d", &n, &m, &s, &t);
-    for (int i = 1; i <= m; ++i)
-    {
+    for (int i = 1; i <= m; ++i) {
         int u, v, cap;
         scanf("%d%d%d", &u, &v, &cap);
         addEdge(u, v, cap);
     }
 }
 
-int main()
-{
+int main() {
     init();
     printf("%d\n", maxFlow());
     return 0;

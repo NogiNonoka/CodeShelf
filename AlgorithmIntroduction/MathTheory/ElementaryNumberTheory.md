@@ -5,8 +5,7 @@
 #### Quick Pow
 
 ```C++
-inline int qpow(int a, int b)
-{
+inline int qPow(int a, int b) {
     // Calc a ^ b % MOD
     int ans = 1;
     for (; b; b >>= 1, a = a * a % MOD)
@@ -19,8 +18,7 @@ inline int qpow(int a, int b)
 #### Quick Mul
 
 ```C++
-inline int qmul(int a, int b, int p)
-{
+inline int qMul(int a, int b, int p) {
     // Calc a * b % p
     int ans = 0;
     for (; b; b >>= 1, a = (a << 1) % p)
@@ -46,21 +44,19 @@ inline int qmul(int a, int b, int p)
 bool vis[MAXN];
 int prime[MAXN];
 
-void getPrime(int n)
-{
+void getPrime(int n) {
     // Get Prime in Range [0, n)
     // use prime[0] as cnt
     // Time Complexity: O(N)
     memset(vis, 0, sizeof(vis));
     memset(prime, 0, sizeof(prime));
+    vis[0] = vis[1] = true;
     prime[0] = 0;
     // Use index 0 as Cnt
-    for (int i = 2; i < n; i++)
-    {
+    for (int i = 2; i < n; i++) {
         if (!vis[i])
             prime[++prime[0]] = i;
-        for (int j = 1; j <= prime[0] && i * prime[j] < n; j++)
-        {
+        for (int j = 1; j <= prime[0] && i * prime[j] < n; j++) {
             vis[i * prime[j]] = true;
             if (i % prime[j] == 0)
                 break;
@@ -87,8 +83,7 @@ void getPrime(int n)
 ```C++
 int inv[MAXN];
 
-void getInv(int n)
-{
+void getInv(int n) {
     inv[1] = 1;
     for (int i = 2; i <= n; i++)
         inv[i] = (MOD - MOD / i) * inv[MOD % i] % MOD;
@@ -99,8 +94,7 @@ void getInv(int n)
 ```C++
 int fac[MAXN], inv[MAXN], facinv[MAXN];
 
-void getInv(int n)
-{
+void getInv(int n) {
     fac[0] = 1;
     for (int i = 1; i < n; i++)
         fac[i] = fac[i - 1] * i % MOD;
@@ -114,8 +108,7 @@ void getInv(int n)
     // Factorials' Muiltiplicative Inverse
 }
 
-inline int C(int n, int m)
-{
+inline int C(int n, int m) {
     if (m > n)
         return 0;
     return fac[n] * facinv[m] % MOD * facinv[n - m] % MOD;
@@ -129,10 +122,14 @@ inline int C(int n, int m)
 - 前置函数：Quick Pow
 - 满足 $gcd(a, p) = 1$ 的条件下，$a \cdot a^{-1} \equiv 1 \ (mod \ p)$ 求 $a$ 的逆元 $a^{-1}$:
 $$a^{p - 1} \equiv 1 (mod \ p)$$ 
-- 故 $a^{-1} \equiv a^{p - 2} = qpow(a, p - 2) \  (mod \ p)$。
+- 故 $a^{-1} \equiv a^{p - 2} = qPow(a, p - 2) \  (mod \ p)$。
 
 #### Extended GCD (Congruent Liner Equation)
 
+- Euclid 算法（辗转相除法）：$gcd(a, b) = gcd(b, a \% b)$
+  证明：
+  - 假设$a > b,\ d = gcd(a, b)$，记 $a = xd = kb + r,\ b = yd$，则 $r = a - kb = (x - ky)d$，则 $d$ 为 $a \% b$ 的一个因数。
+  - 可以使用反证法证明 $d$ 仍为最大公因数。
 - 裴蜀定理：不定方程 $ax + by = gcd(a,b)$ 有解，可扩展到 $n$ 元情况；
 - 线性同余方程
   - 形如：$ax \equiv c \ (mod \ b) \Leftrightarrow ax + by = c$
@@ -140,16 +137,14 @@ $$a^{p - 1} \equiv 1 (mod \ p)$$
 - 扩展欧几里得
   - 解不定方程 $ax + by = gcd(a, b)$；
   - 判断并求解不定方程 $ax + by = c$；
-    - 若 $a \ b$ 不互质，将方程转化为 $\dfrac{a}{gcd(a, b)}x + \dfrac{b}{gcd(a,b)} = \dfrac{c}{gcd(a, b)}$；
+    - 若 $a \ b$ 不互质，将方程转化为 $\dfrac{a}{gcd(a, b)}x + \dfrac{b}{gcd(a,b)} y = \dfrac{c}{gcd(a, b)}$；
     - 求最小非负整数解：记 $t = \dfrac{b}{gcd(a, b)}$，则$x = (x \% t + t) \% t$，代回方程求 $y$。
 
 ```C++
-int exgcd(int a, int b, int &x, int &y)
-{
+int exgcd(int a, int b, int &x, int &y) {
     // Solve Congruent Liner Equation: ax + by == gcd(a, b), ax = gcd(a, b) (mod b)
     // Minimum Positive Integer Solution: t = b / gcd(a, b), x = (x % t + t) % t
-    if (b == 0)
-    {
+    if (b == 0) {
         x = 1; y = 0;
         return a;
     }
@@ -162,8 +157,7 @@ int exgcd(int a, int b, int &x, int &y)
 - 扩展欧几里得求逆元
 
 ```C++
-int inv(int a, int p)
-{
+int inv(int a, int p) {
     // Calc Inverse Element a^{-1} (mod p)
     int x, y;
     int d = exgcd(a, p, x, y);
@@ -189,15 +183,14 @@ $$
   - 前置函数：Extended GCD & Quick Mul
   - 解线性同余方程组；
   - 算法过程：
-    - 计算 $m = \Pi p_i$；
+    - 计算 $m = \prod p_i$；
     - 对于每一个方程，计算 $n = \dfrac{m}{p_i}$；
     - 计算 $n^{-1} \ (mod \ p_i)$；
     - 计算 $x_i = n * n^{-1} * a[i]$，$x$ 满足 $\forall (p_j \in p, \ i \neq j),\ x \equiv 1 \ (mod \ p_j)$ 且 $x_i \equiv a_i \ (mod \ p_i)$
     - 方程的解为 $ans = \sum x_i (mod \ m)$；
 
 ```C++
-int crt(vector<int> &a, vector<int> &p)
-{
+int crt(vector<int> &a, vector<int> &p) {
     // Solve Congruent Liner Equation Group: x = a (mod p)
     int ans = 0, m = 1;
     for (int i = 0; i < p.size(); ++i)
@@ -206,7 +199,7 @@ int crt(vector<int> &a, vector<int> &p)
     {
         int n = m / p[i];
         int x = inv(n, p[i]); //Solve nx = 1 (mod p) based on exgcd
-        ans = (ans + qmul(qmul(n, x, m), (a[i] % m + m) % m, m)) % m;
+        ans = (ans + qMul(qMul(n, x, m), (a[i] % m + m) % m, m)) % m;
         // ans = (ans + n * x % m * a[i] % m) % m;
     }
     ans = (ans % m + m) % m;
@@ -234,8 +227,8 @@ $$
 \end{array}
 \right.  
 $$
-    - 即 $x = p_1m + a_1 = p_2n + a_2$，化为 $p_1m - p_2n = a_2 - a_1$ 使用 Extended GCD 判断有解 $gcd(p_1, p_2) | a_2 - a_1$ 并解出 $m,\ n$，带回求得 $x$。
-  - 对于多个方程的情况：
+    - 即 $x = p_1m + a_1 = p_2n + a_2$，化为 $p_1m - p_2n = a_2 - a_1$ ，根据裴蜀定理，使用 Extended GCD 判断有解 $gcd(p_1, p_2) | (a_2 - a_1)$ 并解出 $m,\ n$，带回求得 $x$。
+  - 对于多个方程的情况（扩展中国剩余定理）：
     - 将前两个方程解得 $x$ 后得到新方程 $x \equiv p_1m + a_1 \ (mod \  lcm(p_1, p_2))$；
     - 递推解两个方程构成的方程组。
 

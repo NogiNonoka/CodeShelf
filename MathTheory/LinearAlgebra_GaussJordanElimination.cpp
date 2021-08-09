@@ -2,9 +2,10 @@
  * @Author              : beta_dust, Tilnel, NogiNonoka
  * @Date                : 2021-03-22 18:57:06
  * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
- * @LastEditTime        : 2021-04-10 21:30:23
+ * /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
+ * @LastEditTime        : 2021-08-08 22:53:03
  * @Forward Declaration : None
- * @Discription         : 
+ * @Discription         :
  *  Gauss Jordan Elimination (High Precision)
  *  Calc n * n matrix's solution
  *  Time Complexity: O(N^2)
@@ -24,45 +25,32 @@ const double eps = 1e-8;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-struct GaussJordanElimination
-{
+struct GaussJordanElimination {
     int n; // n * n  matrix
     double matrix[MAXN][MAXN];
 
-    void input()
-    {
+    void input() {
         scanf("%d", &n);
-        for (int i = 1; i <= n; ++i)
-        {
-            for (int j = 1; j <= n + 1; ++j)
-            {
-                scanf("%lf", &matrix[i][j]);
-            }
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= n + 1; ++j) { scanf("%lf", &matrix[i][j]); }
         }
     }
 
-    bool gaussjordan()
-    {
+    bool elimination() {
         // Gauss Jordan Elimination
         // Calc n * n matrix's solution
         // Time Complexity: O(N^2)
-        for (int i = 1; i <= n; ++i)
-        {
+        for (int i = 1; i <= n; ++i) {
             int maxi = i;
-            for (int j = i + 1; j <= n; ++j)
-            {
-                if (fabs(matrix[j][i]) > fabs(matrix[maxi][i]))
-                    maxi = j;
+            for (int j = i + 1; j <= n; ++j) {
+                if (fabs(matrix[j][i]) > fabs(matrix[maxi][i])) maxi = j;
             }
             if (maxi != i)
                 for (int j = 1; j <= n + 1; ++j)
                     swap(matrix[i][j], matrix[maxi][j]);
-            if (fabs(matrix[i][i]) < eps)
-                return false;
-            for (int j = 1; j <= n; ++j)
-            {
-                if (j != i)
-                {
+            if (fabs(matrix[i][i]) < eps) return false;
+            for (int j = 1; j <= n; ++j) {
+                if (j != i) {
                     double tmp = matrix[j][i] / matrix[i][i];
                     for (int k = i + 1; k <= n + 1; ++k)
                         matrix[j][k] -= matrix[i][k] * tmp;
@@ -79,21 +67,18 @@ struct GaussJordanElimination
         return true;
     }
 
-    void output()
-    {
-        for (int i = 1; i <= n; ++i)
-        {
+    void output() {
+        for (int i = 1; i <= n; ++i) {
             printf("%.2lf\n", matrix[i][n + 1] / matrix[i][i]);
         }
     }
 } ge;
 
-signed main(void)
-{
+signed main(void) {
     // Problem: Luogu P3389
     // Link: https://www.luogu.com.cn/problem/P3389
     ge.input();
-    if (ge.gauss())
+    if (ge.elimination)
         ge.output();
     else
         printf("No Solution\n");

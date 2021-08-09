@@ -1,9 +1,9 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-05 23:37:12
- * @FilePath            : \CodeShelf\String\SuffixCompare_exKMP_ZAlgorithm.cpp
+ * @FilePath            : /CodeShelf/String/SuffixMatch_exKMP_ZAlgorithm.cpp
  * @Forward Declaration : None
- * @Discription         : 
+ * @Discription         :
  *  Extend KMP (Z Algorithm)
  *  Match suffix of s with prefix of t
  *  Time Complexity: O(N + M)
@@ -23,44 +23,37 @@ const int MAXN = 2e7 + 7;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-struct EXKMP
-{
+struct EXKMP {
     // Extend KMP (Z Algorithm)
     // Match suffix of s with prefix of t
     // Time Complexity: O(N + M)
     int z[MAXN];
     int ext[MAXN];
 
-    void Z(string &t)
-    {
+    void Z(string& t) {
         /**
-         * @description: Z Algorithm, match suffix of t with prefix of t 
+         * @description: Z Algorithm, match suffix of t with prefix of t
          * @param {model string t}
          * @return {void}
          */
         z[0] = t.length();
         int now = 0;
-        while (now + 1 < t.length() && t[now] == t[now + 1])
-            ++now;
+        while (now + 1 < t.length() && t[now] == t[now + 1]) ++now;
         z[1] = now;
         int pos = 1;
-        for (int i = 2; i < t.length(); ++i)
-        {
+        for (int i = 2; i < t.length(); ++i) {
             if (i + z[i - pos] < pos + z[pos])
                 z[i] = z[i - pos];
-            else
-            {
+            else {
                 now = max(0, pos + z[pos] - i);
-                while (now + i < t.length() && t[now] == t[now + i])
-                    ++now;
+                while (now + i < t.length() && t[now] == t[now + i]) ++now;
                 z[i] = now;
                 pos = i;
             }
         }
     }
 
-    void exKMP(string &s, string &t)
-    {
+    void exKMP(string& s, string& t) {
         /**
          * @description: Extend KMP
          * @param {text string s, model string t}
@@ -68,32 +61,30 @@ struct EXKMP
          */
         Z(t);
         int now = 0;
-        while (now < s.length() && now < t.length()  && s[now] == t[now])
-            ++now;
+        while (now < s.length() && now < t.length() && s[now] == t[now]) ++now;
         ext[0] = now;
         int pos = 0;
-        for (int i = 1; i < s.length(); ++i)
-        {
+        for (int i = 1; i < s.length(); ++i) {
             if (i + z[i - pos] < pos + ext[pos])
                 ext[i] = z[i - pos];
-            else
-            {
+            else {
                 now = max(0, pos + ext[pos] - i);
-                while (now + i < s.length() && now < t.length() && s[now + i] == t[now])
+                while (now + i < s.length() && now < t.length() &&
+                    s[now + i] == t[now])
                     ++now;
                 ext[i] = now;
                 pos = i;
             }
         }
     }
-}exkmp;
+} exkmp;
 
-int32_t main(void)
-{
+signed main(void) {
     // Problem ID: Luogu P5410
     // Link: https://www.luogu.com.cn/problem/P5410
     ios::sync_with_stdio(false);
-    cin.tie(0); cout.tie(0);
+    cin.tie(0);
+    cout.tie(0);
     string s, t;
     long long ans;
     cin >> s >> t;
