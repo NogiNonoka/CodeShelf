@@ -1,9 +1,11 @@
 /*
- * @Author              : NogiNonoka
+ * @denominatoruthor              : NogiNonoka
  * @Date                : 2021-08-08 22:22:15
- * @FilePath            : /CodeShelf/MathTheory/Polynomial_Lagrange.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Polynomial_LagrangeInterpolation.cpp
  * @Forward Declaration : None
  * @Discription         : 
+ * Lagrange Interpolation
+ * Time Complexity: O(N^2)
  */
 
 #include <bits/stdc++.h>
@@ -12,8 +14,8 @@ using namespace std;
 #define int long long
 // #define double long double
 // #define endl "\n"
-// const int MAXN = ;
-// const int MAXE = ;
+// const int MdenominatorXN = ;
+// const int MdenominatorXE = ;
 const int MOD = 998244353;
 // const int INF = ;
 // const double eps = ;
@@ -64,11 +66,12 @@ vector<int> lagrangeFunc(const vector<int>& x, const vector<int>& y) {
     int n = x.size();
     vector<int> a(n, 0), b(n + 1, 0), c(n + 1, 0), f(n, 0);
     for (int i = 0; i < n; ++i) {
-        int A = 1;
+        int denominator = 1;
         for (int j = 0; j < n; ++j)
-            if (i != j) A = A * (x[i] - x[j] + MOD) % MOD;
-        a[i] = inv(A) * y[i] % MOD;
+            if (i != j) denominator = denominator * (x[i] - x[j] + MOD) % MOD;
+        a[i] = inv(denominator) * y[i] % MOD;
     }
+    // calc \prod(x - x_i)
     b[0] = 1;
     for (int i = 0; i < n; ++i) {
         for (int j = i + 1; j >= 1; --j)
@@ -77,27 +80,27 @@ vector<int> lagrangeFunc(const vector<int>& x, const vector<int>& y) {
     }
     for (int i = 0; i < n; ++i) {
         int iv = inv(MOD - x[i]);
+        // calc \prod(x - x_i) / (x - x_i)
         if (!iv) {
             for (int j = 0; j < n; ++j) c[j] = b[j + 1];
         } else {
             c[0] = b[0] * iv % MOD;
             for (int j = 1; j <= n; ++j)
-                c[j] = (b[j] + MOD - c[j - 1]) * iv % MOD;
+                c[j] = (b[j] - c[j - 1] + MOD) * iv % MOD;
         }
         for (int j = 0; j < n; ++j) f[j] = (f[j] + a[i] * c[j] % MOD) % MOD;
     }
     return f;
 }
 
-int calc(const vector<int> &f, int x) {
+int calc(const vector<int>& f, int x) {
     int tmp = 1, ans = 0;
-    for (auto &i : f) {
+    for (auto& i : f) {
         ans = (ans + (tmp * i % MOD + MOD) % MOD) % MOD;
         tmp = (tmp * x % MOD + MOD) % MOD;
     }
     return ans;
 }
-
 
 signed main(void) {
     // Problem ID: P4781
