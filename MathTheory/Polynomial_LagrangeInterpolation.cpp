@@ -4,8 +4,8 @@
  * @FilePath            : /CodeShelf/MathTheory/Polynomial_LagrangeInterpolation.cpp
  * @Forward Declaration : None
  * @Discription         : 
- * Lagrange Interpolation
- * Time Complexity: O(N^2)
+ *  Lagrange Interpolation
+ *  Time Complexity: O(N^2)
  */
 
 #include <bits/stdc++.h>
@@ -14,8 +14,8 @@ using namespace std;
 #define int long long
 // #define double long double
 // #define endl "\n"
-// const int MdenominatorXN = ;
-// const int MdenominatorXE = ;
+// const int MAXN = ;
+// const int MAXE = ;
 const int MOD = 998244353;
 // const int INF = ;
 // const double eps = ;
