@@ -46,6 +46,7 @@ struct Prim {
                     nxtdis = dis[i];
                 }
             }
+            vis[nxt] = true;
             for (int i = 1; i <= n; ++i)
                 if (!vis[i] && graph[nxt][i] < dis[i]) dis[i] = graph[nxt][i];
         }
@@ -56,4 +57,5 @@ int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
+    return 0;
 }
