@@ -3,7 +3,7 @@
  * @Date                : 2021-03-22 18:57:06
  * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
  * /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
- * @LastEditTime        : 2021-08-08 22:53:03
+ * @LastEditTime        : 2021-10-12 14:41:19
  * @Forward Declaration : None
  * @Discription         :
  *  Gauss Jordan Elimination (High Precision)
@@ -15,7 +15,7 @@
 using namespace std;
 // #define int long long
 // #define double long double
-#define endl "\n"
+// #define endl "\n"
 const int MAXN = 103;
 // const int MAXE = ;
 // const int MOD = ;
@@ -59,8 +59,7 @@ struct GaussJordanElimination {
         }
         /*  Calc determinant
             double det = 1;
-            for (int i = 1; i <= n; i++)
-            {
+            for (int i = 1; i <= n; i++) {
                 det *= a[i][i];
             }
         */
@@ -78,7 +77,7 @@ signed main(void) {
     // Problem: Luogu P3389
     // Link: https://www.luogu.com.cn/problem/P3389
     ge.input();
-    if (ge.elimination)
+    if (ge.elimination())
         ge.output();
     else
         printf("No Solution\n");

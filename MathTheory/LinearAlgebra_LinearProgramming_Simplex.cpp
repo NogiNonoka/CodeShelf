@@ -32,7 +32,7 @@ struct Simplex {
     // a[i]: \sum (a_ij * xj) = a[i][n]
     // Time Complexity: O(Exponential)
     int n;                // num of variables
-    int m;                // NUM OF limitations
+    int m;                // num of limitations
     double a[MAXM][MAXN]; // matrix for limitations and target
     int bvar[MAXM];       // basic variables, |bv| = m
     int nvar[MAXN];       // nonbasic variables, |nv| = n

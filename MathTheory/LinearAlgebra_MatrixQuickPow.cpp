@@ -44,7 +44,7 @@ struct Matrix {
 
     Matrix operator*(const Matrix& b) {
         Matrix c;
-        c.Null_Matrix();
+        c.nullMatrix();
         for (int i = 1; i <= len; ++i)
             for (int j = 1; j <= len; ++j)
                 for (int k = 1; k <= len; ++k)
