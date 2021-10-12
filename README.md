@@ -83,8 +83,7 @@ using namespace std;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-signed main(void)
-{
+signed main(void) {
     ios::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
     

@@ -17,7 +17,7 @@
 
 字符串下标从 **0** 开始。
 
-将 $Next$ 数组全部向后移动一位，令 $nxt[0] = -1$，此时 $nxt[j]$ 表示子串 $t[0 \dots j - 1]$ 前缀与后缀的 $LCP$，即 $t[0 \dots nxt[j] - 1]$ 与 $t[j - 1 - nxt[j] \dots j - 1]$ 相等，则下一步模式串 $s[i]$ 与 $s[nxt[j]]$ 比较
+将 $Next$ 数组全部向后移动一位，令 $nxt[0] = -1$，此时 $nxt[j]$ 表示子串 $t[0 \dots j - 1]$ 前缀与后缀的 $LCS$，即 $t[0 \dots nxt[j] - 1]$ 与 $t[j - 1 - nxt[j] \dots j - 1]$ 相等，则下一步模式串 $s[i]$ 与 $s[nxt[j]]$ 比较
 
 ##### Calculate Next
 
@@ -84,7 +84,5 @@ struct KMP
 ```
 
 ### AC Automate
-
-## Prefix - Suffix Compare
 
 ### Extend KMP (Z Algorithm)

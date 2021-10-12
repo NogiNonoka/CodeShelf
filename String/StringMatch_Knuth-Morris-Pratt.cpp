@@ -58,7 +58,7 @@ struct KMP {
     int kmpFirstCount();
 
 #ifdef DEBUG
-    void showNext() {
+    void print() {
         for (int i = 0; i < t.length(); ++i) { cout << t[i] << " "; }
         cout << endl;
         for (int i = 0; i < t.length(); ++i) { cout << nxt[i] << " "; }
