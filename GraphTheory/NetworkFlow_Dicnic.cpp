@@ -59,8 +59,7 @@ struct Dicnic {
         arc[s] = head[s];
         q.push(s);
         while (!q.empty()) {
-            int now = q.front();
-            q.pop();
+            int now = q.front(); q.pop();
             for (int i = head[now]; ~i; i = edge[i].nxt) {
                 int to = edge[i].to;
                 if (dep[to] == -1 && edge[i].val > 0) {
@@ -77,7 +76,7 @@ struct Dicnic {
     int dfs(int now, int flow) {
         if (now == t) return flow;
         int res = 0;
-        for (int& i = arc[now]; (~i) && flow; i = edge[i].nxt) {
+        for (int &i = arc[now]; (~i) && flow; i = edge[i].nxt) {
             int to = edge[i].to;
             if (dep[to] == dep[now] + 1 && edge[i].val > 0) {
                 int nxtFlow = dfs(to, min(flow, edge[i].val));
