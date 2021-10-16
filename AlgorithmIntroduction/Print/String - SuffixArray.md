@@ -1,19 +1,20 @@
-## Suffix Array
+# String - Suffix Array
 
-### Introduction
+## Introduction
 
 - $sa_i$：排名为 $i$ 的后缀
 - $rk_i$：后缀 $i$ 的排名
 - $ht_i$：$lcp(sa_i, sa_{i - 1})$
 
-### Algorithm
+## Algorithm
 
-#### 基于倍增思想的实现
+### 基于倍增思想的实现
+
 - 时间复杂度：$O(n\log^2(n))$
 - 已知 $rk_{i}[i,i + len - 1]$ 求 $sa_{i}[i, i + 2 * len - 1]$，只需双关键字排序即可；
-- 根据 $sa$ 对 $rk$ 更新并去重，基于 $sa$ 的含义 $rk[sa[i]] = i$，更新 $rk[i]$ 时只需要比较当前串 $i$ 和 前一串 $i - 1$ 是否相同，相同的条件即合并为 $i$ 的 $i_1$ 与 $i_2$ 的两串与合并为 $(i - 1)$ $(i - 1)_1$ 与 $(i - 1)_2$ 的 $rk_{pre}$ 值相同。
+- 根据 $sa$ 对 $rk$ 更新并去重，基于 $sa$ 的含义 $rk[sa[i]] = i$，更新 $rk_i$ 时只需要比较当前串 $i$ 和 前一串 $i - 1$ 是否相同，相同的条件即 $i = i_1 + i_2$ 与合并为 $(i - 1) = (i - 1)_1 + (i - 1)_2$ 的 $rk_{pre}$ 值相同。
 
-##### Template
+#### Template
 
 ```C++
 string s;
@@ -39,13 +40,13 @@ void build(int n) {
 }
 ```
 
-#### 基于计数排序的优化
+### 基于计数排序的优化
 
 - 时间复杂度：$O(NlogN)$
 - 使用计数排序代替快速排序；
 - 维护 $id$ 对第二关键字排序；
 
-##### Template
+#### Template
 
 ```C++
 string s;
@@ -95,7 +96,7 @@ void getSA(int n) {
 }
 ```
 
-#### Longest Common Prefix 最长公共前缀
+### Longest Common Prefix 最长公共前缀
 
 - 引理：$ht_{rk[i]} \ge ht_{rk[i - 1]} - 1$
   - 证明：$i$ 表示后缀字符串，$[a-z]$ 表示单个字符，$[A-Z]$ 表示字符串；
@@ -104,7 +105,7 @@ void getSA(int n) {
     - $i = AD,\ ht_{rk[i]} = lcp(sa[rk[i]], sa[rk[i] - 1])$
     - $AB < AD,\ AB \le sa[rk[i] - 1] \le AC \le AD,\ ht_{rk[i]} \ge len(A) = ht_{rk[i - 1]} - 1$
 
-##### Template
+#### Template
 
 ```C++
 int ht[MAXN];
@@ -120,7 +121,7 @@ void getHeight(int n) {
 }
 ```
 
-### Solution 
+## Solution
 
 - 寻找最小的循环移动位置
 - 在字符串中找子串
@@ -131,3 +132,4 @@ void getHeight(int n) {
   - 记 $A = s[a \dots c],\ B = s[b \dots d]$
   - 若 $lcp(a, b) > \min(|A|, |B|) ,\ A < B \Leftrightarrow |A| < |B|$
   - 则 $A < B \Leftrightarrow rk[a] < rk[b]$
+

@@ -9,7 +9,7 @@
  *  a ^ phi(b) = 1 (mod b)
  *  phi(b) is NOT minimum order
  *  Use phi(b)'s divisors calc a ^ div = 1 (mod b) for minimum order (Based on
- * Lagrange theorem - Group theorem)
+ *  Lagrange theorem - Group theorem)
  */
 
 #include <bits/stdc++.h>
