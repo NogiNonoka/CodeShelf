@@ -39,7 +39,7 @@ void print(int x) {
 #endif
 
 void init() {
-    // set cnt = 0, root will start from 1
+    // if set cnt = 0, after insert, root = 1
     for (int i = 0; i <= cnt; ++i) {
         node[cnt].ch[0] = node[cnt].ch[1] = 0;
         node[cnt].val = node[cnt].cnt = node[cnt].size = 0;

@@ -3,7 +3,7 @@
  * @Date                : 2021-04-09 18:06:54
  * @FilePath            : /CodeShelf/DataStructure/PersistentSegmentTree_MexQuery.cpp
  * /CodeShelf/DataStructure/PersistentSegmentTree_MexQuery.cpp
- * @LastEditTime        : 2021-08-06 21:17:54
+ * @LastEditTime        : 2021-10-13 14:43:49
  * @Forward Declaration : None
  * @Discription         :
  *  Persistent Segment Tree
@@ -64,7 +64,7 @@ int a[MAXN];
 
 signed main(void) {
     // Problem ID: Nowcoder 2020-2021 ICPC Kunming M
-    // Link: https://ac.nowcoder.com/acm/contest/12548/M?&headNav=acm
+    // Link: https://ac.nowcoder.com/acm/contest/12548/M
     scanf("%lld%lld", &n, &m);
     ans = 0;
     cnt = 0;
