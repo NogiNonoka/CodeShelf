@@ -1,7 +1,7 @@
 /*
  * @Author              : NogiNonoka
  * @Date                : 2021-03-20 18:17:28
- * @FilePath            : /CodeShelf/MathTheory/Preparation_qMul.cpp
+ * @FilePath            : /CodeShelf/MathTheory/Preparation_QuickMul.cpp
  * @Forward Declaration : None
  * @Discription         :
  *  Quick Mul
@@ -23,12 +23,16 @@ using namespace std;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-int qMul(int a, int b, int p = MOD) {
+int fuckMul(int a, int b, int p = MOD) {
     // Calc a * b % p
     int ans = 0;
     for (; b; b >>= 1, a = (a << 1) % p)
         if (b & 1) ans = (ans + a) % p;
     return ans;
+}
+
+int lightMul(int a, int b, int p) {
+    return (a * b - (int)floor((long double)a * (long double)b / (long double)p + 0.5 ) * p + p) % c;
 }
 
 signed main(void) {

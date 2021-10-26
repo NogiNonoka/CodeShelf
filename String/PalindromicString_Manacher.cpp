@@ -19,11 +19,12 @@ struct Manacher {
     int cnt[MAXN];
 
     void pre(string& s) {
-        text = "*#";
+        text = "^#";
         for (auto ch : s) {
             text += ch;
             text += '#';
         }
+        text += '$';
     }
 
     int manacher() {
