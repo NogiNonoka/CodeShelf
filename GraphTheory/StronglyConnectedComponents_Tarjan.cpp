@@ -41,7 +41,8 @@ struct Tarjan {
     }
 
     void addEdge(int u, int v) {
-        edges[u].push_back(v); // add Twice in Undirected Graph
+        edges[u].push_back(v); 
+        // add Twice in Undirected Graph
     }
 
     void dfs(int pre, int now) {
@@ -52,8 +53,8 @@ struct Tarjan {
             if (dfn[nxt] == 0) {
                 dfs(now, nxt);
                 low[now] = min(low[now], low[nxt]);
-            } else if (vis[nxt]) // && nxt != pre) in undirected graph, add this
-            {
+            } else if (vis[nxt]) {
+                // in undirected graph, nxt != pre
                 low[now] = min(low[now], dfn[nxt]);
             }
         }

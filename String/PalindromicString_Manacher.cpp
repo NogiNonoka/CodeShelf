@@ -42,7 +42,7 @@ struct Manacher {
             }
             ans = max(ans, cnt[i]);
         }
-        return ans;
+        return ans - 1;
     }
 } ps;
 
@@ -55,6 +55,6 @@ signed main(void) {
     string s;
     cin >> s;
     ps.pre(s);
-    cout << ps.manacher() - 1 << endl;
+    cout << ps.manacher() << endl;
     return 0;
 }
