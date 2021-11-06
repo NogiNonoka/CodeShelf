@@ -13,7 +13,6 @@
 
 #include <cstring>
 #include <iostream>
-
 using namespace std;
 const int MAXN = 5e6 + 7;
 

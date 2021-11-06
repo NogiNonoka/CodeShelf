@@ -31,7 +31,7 @@ int cnt, root[MAXN];
 
 void update(int l, int r, int& now, int pre, int x) {
     now = ++cnt;
-    node[cnt] = node[pre];
+    node[now] = node[pre];
     node[now].size += 1;
     if (l == r) return;
     int m = l + r >> 1;
