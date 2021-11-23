@@ -3,7 +3,7 @@
  * @Date                : 2021-03-22 18:57:06
  * @FilePath            : /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
  * /CodeShelf/MathTheory/LinearAlgebra_GaussJordanElimination.cpp
- * @LastEditTime        : 2021-10-12 14:41:19
+ * @LastEditTime        : 2021-11-18 12:13:28
  * @Forward Declaration : None
  * @Discription         :
  *  Gauss Jordan Elimination (High Precision)
@@ -40,14 +40,17 @@ struct GaussJordanElimination {
         // Gauss Jordan Elimination
         // Calc n * n matrix's solution
         // Time Complexity: O(N^2)
+        int flg = 0;
         for (int i = 1; i <= n; ++i) {
             int maxi = i;
             for (int j = i + 1; j <= n; ++j) {
                 if (fabs(matrix[j][i]) > fabs(matrix[maxi][i])) maxi = j;
             }
-            if (maxi != i)
+            if (maxi != i) {
+                flg ^= 1;
                 for (int j = 1; j <= n + 1; ++j)
                     swap(matrix[i][j], matrix[maxi][j]);
+            }
             if (fabs(matrix[i][i]) < eps) return false;
             for (int j = 1; j <= n; ++j) {
                 if (j != i) {
@@ -60,8 +63,9 @@ struct GaussJordanElimination {
         /*  Calc determinant
             double det = 1;
             for (int i = 1; i <= n; i++) {
-                det *= a[i][i];
+                det *= matrix[i][i];
             }
+            if (flg) det = -det;
         */
         return true;
     }
