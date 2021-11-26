@@ -35,9 +35,7 @@ void work(void (*FWT)(ll* f, int type)) //将函数作为参数传入
     for (int i = 0; i < n; i++) a[i] = A[i], b[i] = B[i];
     FWT(a, 1);
     FWT(b, 1);
-    c
-            cout
-        << "* ";
+    cout << "* ";
     for (int i = 0; i < n; ++i) cout << a[i] << " ";
     cout << endl;
     cout << "* ";
