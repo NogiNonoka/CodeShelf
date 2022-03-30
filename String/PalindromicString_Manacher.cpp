@@ -12,39 +12,37 @@
 using namespace std;
 const int MAXN = 5e7 + 7;
 
-struct Manacher {
-    // Manacher Algorithm (Longest Palindromic Substring)
-    // Time Complexity: O(N)
-    string text;
-    int cnt[MAXN];
+// Manacher Algorithm (Longest Palindromic Substring)
+// Time Complexity: O(N)
+string text;
+int cnt[MAXN];
 
-    void pre(string& s) {
-        text = "^#";
-        for (auto ch : s) {
-            text += ch;
-            text += '#';
-        }
-        text += '$';
+void pre(const string& s) {
+    text = "^#";
+    for (auto ch : s) {
+        text += ch;
+        text += '#';
     }
+    text += '$';
+}
 
-    int manacher() {
-        int ans = 0;
-        int mid = 0, maxr = 0;
-        for (int i = 0; i < text.size(); ++i) {
-            if (i < maxr)
-                cnt[i] = min(cnt[mid * 2 - i], maxr - i);
-            else
-                cnt[i] = 1;
-            while (text[i + cnt[i]] == text[i - cnt[i]]) ++cnt[i];
-            if (i + cnt[i] > maxr) {
-                maxr = i + cnt[i];
-                mid = i;
-            }
-            ans = max(ans, cnt[i]);
+int manacher() {
+    int ans = 0;
+    int mid = 0, maxr = 0;
+    for (int i = 1; i < text.size(); ++i) {
+        if (i < maxr)
+            cnt[i] = min(cnt[mid * 2 - i], maxr - i);
+        else
+            cnt[i] = 1;
+        while (text[i + cnt[i]] == text[i - cnt[i]]) ++cnt[i];
+        if (i + cnt[i] > maxr) {
+            maxr = i + cnt[i];
+            mid = i;
         }
-        return ans - 1;
+        ans = max(ans, cnt[i]);
     }
-} ps;
+    return ans - 1;
+}
 
 signed main(void) {
     // Problem ID: Luogu P3805
@@ -54,7 +52,7 @@ signed main(void) {
     cout.tie(0);
     string s;
     cin >> s;
-    ps.pre(s);
-    cout << ps.manacher() << endl;
+    pre(s);
+    cout << manacher() << endl;
     return 0;
 }
