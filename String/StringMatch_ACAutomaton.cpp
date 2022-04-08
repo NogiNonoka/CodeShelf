@@ -23,79 +23,79 @@ const int MAXN = 5e5 + 7;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
-struct ACAutomata {
-    struct Node {
-        int next[26];
-        int fail;
-        int cnt;
-    } node[MAXN];
 
-    int size;
+struct Node {
+    int next[26];
+    int fail;
+    int cnt;
+} node[MAXN];
 
-    void init() {
-        for (int i = 0; i < size; ++i) {
-            memset(node[i].next, 0, sizeof(node[i].next));
-            node[i].fail = 0;
-            node[i].cnt = 0;
-        }
-        size = 0;
-        node[size++].fail = -1; // root: node[0]
+int size;
+
+void init() {
+    for (int i = 0; i < size; ++i) {
+        memset(node[i].next, 0, sizeof(node[i].next));
+        node[i].fail = 0;
+        node[i].cnt = 0;
     }
+    size = 0;
+    node[size++].fail = -1; // root: node[0]
+}
 
-    void insert(string& s) {
-        int now = 0;
-        for (auto ch : s) {
-            if (node[now].next[ch - 'a'] == 0)
-                node[now].next[ch - 'a'] = size++;
-            now = node[now].next[ch - 'a'];
-        }
-        node[now].cnt++;
+void insert(const string& s) {
+    int now = 0;
+    for (auto ch : s) {
+        if (node[now].next[ch - 'a'] == 0)
+            node[now].next[ch - 'a'] = size++;
+        now = node[now].next[ch - 'a'];
     }
+    node[now].cnt++;
+}
 
-    void build() {
-        queue<int> q;
-        q.push(0);
-        while (!q.empty()) {
-            int now = q.front();
-            q.pop();
-            for (int i = 0; i < 26; ++i) {
-                int nxt = node[now].next[i];
-                if (nxt) {
-                    int p = node[now].fail;
-                    while (p != -1 && node[p].next[i] == 0) p = node[p].fail;
-                    node[nxt].fail = (p == -1) ? 0 : node[p].next[i];
-                    q.push(nxt);
-                }
-            }
-        }
-    }
-
-    int calc(int now) {
-        int res = 0;
-        while (now) {
-            res += node[now].cnt;
-            node[now].cnt = 0;
-            now = node[now].fail;
-        }
-        return res;
-    }
-
-    int match(string& s) {
-        int ans = 0;
-        int now = 0;
-        for (auto ch : s) {
-            if (node[now].next[ch - 'a'])
-                now = node[now].next[ch - 'a'];
-            else {
+void build() {
+    queue<int> q;
+    q.push(0);
+    while (!q.empty()) {
+        int now = q.front();
+        q.pop();
+        for (int i = 0; i < 26; ++i) {
+            int nxt = node[now].next[i];
+            if (nxt) {
                 int p = node[now].fail;
-                while (p != -1 && node[p].next[ch - 'a'] == 0) p = node[p].fail;
-                now = (p == -1) ? 0 : node[p].next[ch - 'a'];
+                while (p != -1 && node[p].next[i] == 0) p = node[p].fail;
+                node[nxt].fail = (p == -1) ? 0 : node[p].next[i];
+                q.push(nxt);
             }
-            if (node[now].cnt) ans += calc(now);
         }
-        return ans;
     }
-} aho;
+}
+
+int calc(int now) {
+    int res = 0;
+    while (now) {
+        res += node[now].cnt;
+        node[now].cnt = 0;
+        now = node[now].fail;
+    }
+    return res;
+}
+
+int match(const string& s) {
+    int ans = 0;
+    int now = 0;
+    for (auto ch : s) {
+        if (node[now].next[ch - 'a'])
+            now = node[now].next[ch - 'a'];
+        else {
+            int p = node[now].fail;
+            while (p != -1 && node[p].next[ch - 'a'] == 0) p = node[p].fail;
+            now = (p == -1) ? 0 : node[p].next[ch - 'a'];
+        }
+        if (node[now].cnt) ans += calc(now);
+    }
+    return ans;
+}
+
 
 int T;
 int n;
@@ -109,15 +109,15 @@ signed main(void) {
     cout.tie(nullptr);
     cin >> T;
     while (T--) {
-        aho.init();
+        init();
         cin >> n;
         for (int i = 0; i < n; ++i) {
             cin >> s;
-            aho.insert(s);
+            insert(s);
         }
-        aho.build();
+        build();
         cin >> s;
-        cout << aho.match(s) << endl;
+        cout << match(s) << endl;
     }
     return 0;
 }

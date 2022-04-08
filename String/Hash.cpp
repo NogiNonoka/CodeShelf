@@ -25,7 +25,7 @@ int qPow(int a, int b, int p) {
 
 void calcHash(string &s, vector<int> &hs, const int &BASE, const int &MOD) {
     hs.resize(s.length());
-    hs[0] = s[0] % BASE;
+    hs[0] = s[0] % MOD;
     for (int i = 1; i < s.length(); ++i) {
         hs[i] = (hs[i - 1] * BASE + s[i]) % MOD;
     }
