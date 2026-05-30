@@ -1,54 +1,75 @@
+/*
+ * @Author              : NogiNonoka
+ * @Date                : 2026-05-30
+ * @FilePath            : /CodeShelf/MathTheory/Polynomial_FFT.cpp
+ * @Forward Declaration : None
+ * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : model1 (user-provided API)
+ *  Fast Fourier Transform (Iterative)
+ *  Polynomial multiplication via Cooley-Tukey FFT
+ *  Time Complexity: O(NlogN)
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
-// #define int long long
-// #define double long double
-// #define endl "\n"
-const int MAXN = 1e6 + 7;
-// const int MAXE = ;
-// const int MOD = ;
-// const int INF = ;
-// const double eps = ;
+
 const double PI = acos(-1);
-// const int DIRX[] = {};
-// const int DIRY[] = {};
 
 using Complex = complex<double>;
 
-const Complex I = Complex(0, 1), R = Complex(1, 0);
-
-Complex tmp[MAXN];
-
-void DFT(Complex f[], int len, int opt) {
-    if (len == 1) return;
-    for (int i = 0; i < len; ++i) tmp[i] = f[i];
-    for (int i = 0; i < len; ++i) f[i / 2 + (i & 1 ? len / 2 : 0)] = tmp[i];
-    Complex *g = f, *h = f + len / 2;
-    DFT(g, len / 2, opt); DFT(h, len / 2, opt);
-    Complex cur = R, stp = Complex(cos(2 * PI / len), sin(2 * PI * opt / len));
-    for (int i = 0; i < len / 2; ++i) {
-        tmp[i] = g[i] + cur * h[i];
-        tmp[i + len / 2] = g[i] - cur * h[i];
-        cur *= stp;
+void fft(vector<Complex> &a, bool inv) {
+    int n = a.size();
+    for (int i = 1, j = 0; i < n; ++i) {
+        int bit = n >> 1;
+        for (; j & bit; bit >>= 1) j ^= bit;
+        j ^= bit;
+        if (i < j) swap(a[i], a[j]);
     }
-    for (int i = 0; i < len; ++i) f[i] = tmp[i];
+    for (int len = 2; len <= n; len <<= 1) {
+        double ang = 2 * PI / len * (inv ? -1 : 1);
+        Complex wlen(cos(ang), sin(ang));
+        for (int i = 0; i < n; i += len) {
+            Complex w(1);
+            for (int j = 0; j < len / 2; ++j) {
+                Complex u = a[i + j];
+                Complex v = a[i + j + len / 2] * w;
+                a[i + j] = u + v;
+                a[i + j + len / 2] = u - v;
+                w *= wlen;
+            }
+        }
+    }
+    if (inv) {
+        for (Complex &x : a) x /= n;
+    }
 }
 
-Complex a[MAXN], b[MAXN];
+vector<int> multiply(const vector<int> &a, const vector<int> &b) {
+    vector<Complex> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+    int n = 1;
+    while (n < (int)a.size() + (int)b.size()) n <<= 1;
+    fa.resize(n); fb.resize(n);
+    fft(fa, false); fft(fb, false);
+    for (int i = 0; i < n; ++i) fa[i] *= fb[i];
+    fft(fa, true);
+    vector<int> res(n);
+    for (int i = 0; i < n; ++i)
+        res[i] = (int)round(fa[i].real());
+    while ((int)res.size() > 1 && res.back() == 0) res.pop_back();
+    return res;
+}
 
-signed main(void) {
+int main(void) {
     ios::sync_with_stdio(false);
     cin.tie(nullptr); cout.tie(nullptr);
-    int n;
-    cin >> n;
-    int x;
-    for (int i = 0; i < n; ++i) cin >> x, a[i] = Complex(x, 0);
-    for (int i = 0; i < n; ++i) cin >> x, b[i] = Complex(x, 0);
-    int len = 1; 
-    while (len < (n << 1)) len <<= 1;
-    for (int i = n; i < len; ++i) a[i] = b[i] = Complex(0, 0);
-    DFT(a, len, 1); DFT(b, len, 1);
-    for (int i = 0; i < len; ++i) a[i] *= b[i];
-    DFT(a, len, -1);
-    for (int i = 0; i < (n << 1) - 1; ++i) cout << a[i].real() / len << " ";
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n + 1), b(m + 1);
+    for (int i = 0; i <= n; ++i) cin >> a[i];
+    for (int i = 0; i <= m; ++i) cin >> b[i];
+    auto c = multiply(a, b);
+    for (int i = 0; i < (int)c.size(); ++i)
+        cout << c[i] << " \n"[i + 1 == (int)c.size()];
     return 0;
 }
