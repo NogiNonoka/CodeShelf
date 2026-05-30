@@ -159,6 +159,7 @@ void remove(int val) {
         splay(lson, 0);
         node[lson].ch[1] = 0;
         update(lson);
+        return;
     }
     splay(lson, 0);
     splay(rson, lson);
