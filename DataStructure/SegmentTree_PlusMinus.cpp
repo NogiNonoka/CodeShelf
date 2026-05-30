@@ -27,7 +27,7 @@ struct SegmentTree {
         int lson, rson;
         int val;
         int tag;
-    } pool[MAXN << 2];
+    } nodes[MAXN << 2];
 
     int cnt;
     int root;
@@ -36,70 +36,70 @@ struct SegmentTree {
     void init() { cnt = 0; root = ++cnt; }
 
     void update(int now) {
-        pool[now].val = pool[pool[now].lson].val + pool[pool[now].rson].val +
-            pool[pool[now].lson].tag * (pool[pool[now].lson].right - pool[pool[now].lson].left + 1) +
-            pool[pool[now].rson].tag * (pool[pool[now].rson].right - pool[pool[now].rson].left + 1);
+        nodes[now].val = nodes[nodes[now].lson].val + nodes[nodes[now].rson].val +
+            nodes[nodes[now].lson].tag * (nodes[nodes[now].lson].right - nodes[nodes[now].lson].left + 1) +
+            nodes[nodes[now].rson].tag * (nodes[nodes[now].rson].right - nodes[nodes[now].rson].left + 1);
     }
 
     void build(int l, int r, int now) {
-        pool[now].left = l;
-        pool[now].right = r;
+        nodes[now].left = l;
+        nodes[now].right = r;
         if (l == r) {
-            pool[now].lson = pool[now].rson = 0;
-            pool[now].val = data[l];
-            pool[now].tag = 0;
+            nodes[now].lson = nodes[now].rson = 0;
+            nodes[now].val = data[l];
+            nodes[now].tag = 0;
             return;
         }
         int mid = (l + r) >> 1;
-        pool[now].lson = ++cnt;
-        pool[now].rson = ++cnt;
-        build(l, mid, pool[now].lson);
-        build(mid + 1, r, pool[now].rson);
+        nodes[now].lson = ++cnt;
+        nodes[now].rson = ++cnt;
+        build(l, mid, nodes[now].lson);
+        build(mid + 1, r, nodes[now].rson);
         update(now);
-        pool[now].tag = 0;
+        nodes[now].tag = 0;
     }
 
     void pushdown(int now) {
-        pool[now].val += pool[now].tag * (pool[now].right - pool[now].left + 1);
-        if (pool[now].left == pool[now].right) {
-            pool[now].tag = 0;
+        nodes[now].val += nodes[now].tag * (nodes[now].right - nodes[now].left + 1);
+        if (nodes[now].left == nodes[now].right) {
+            nodes[now].tag = 0;
             return;
         }
-        pool[pool[now].lson].tag += pool[now].tag;
-        pool[pool[now].rson].tag += pool[now].tag;
-        pool[now].tag = 0;
+        nodes[nodes[now].lson].tag += nodes[now].tag;
+        nodes[nodes[now].rson].tag += nodes[now].tag;
+        nodes[now].tag = 0;
     }
 
     void rangeAdd(int l, int r, int now, int tg) {
-        if (pool[now].left == l && pool[now].right == r) {
-            pool[now].tag += tg;
+        if (nodes[now].left == l && nodes[now].right == r) {
+            nodes[now].tag += tg;
             return;
         }
-        if (r <= pool[pool[now].lson].right)
-            rangeAdd(l, r, pool[now].lson, tg);
-        else if (l >= pool[pool[now].rson].left)
-            rangeAdd(l, r, pool[now].rson, tg);
+        if (r <= nodes[nodes[now].lson].right)
+            rangeAdd(l, r, nodes[now].lson, tg);
+        else if (l >= nodes[nodes[now].rson].left)
+            rangeAdd(l, r, nodes[now].rson, tg);
         else {
-            rangeAdd(l, pool[pool[now].lson].right, pool[now].lson, tg);
-            rangeAdd(pool[pool[now].rson].left, r, pool[now].rson, tg);
+            rangeAdd(l, nodes[nodes[now].lson].right, nodes[now].lson, tg);
+            rangeAdd(nodes[nodes[now].rson].left, r, nodes[now].rson, tg);
         }
         update(now);
     }
 
     int query(int l, int r, int now) {
         int res = 0;
-        if (pool[now].left == l && pool[now].right == r) {
+        if (nodes[now].left == l && nodes[now].right == r) {
             pushdown(now);
-            return pool[now].val;
+            return nodes[now].val;
         }
         pushdown(now);
-        if (r <= pool[pool[now].lson].right)
-            return query(l, r, pool[now].lson);
-        else if (l >= pool[pool[now].rson].left)
-            return query(l, r, pool[now].rson);
+        if (r <= nodes[nodes[now].lson].right)
+            return query(l, r, nodes[now].lson);
+        else if (l >= nodes[nodes[now].rson].left)
+            return query(l, r, nodes[now].rson);
         else
-            return query(l, pool[pool[now].lson].right, pool[now].lson) +
-                query(pool[pool[now].rson].left, r, pool[now].rson);
+            return query(l, nodes[nodes[now].lson].right, nodes[now].lson) +
+                query(nodes[nodes[now].rson].left, r, nodes[now].rson);
         return res;
     }
 } stree;
