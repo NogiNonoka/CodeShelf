@@ -52,9 +52,35 @@ void kmpAllIndex() {
     }
 }
 
-int kmpFirstIndex();
+int kmpFirstIndex() {
+    getNext();
+    int i = 0, j = 0;
+    while (i < (int)s.length()) {
+        if (j == -1 || s[i] == t[j])
+            ++i, ++j;
+        else
+            j = nxt[j];
+        if (j == (int)t.length())
+            return i - j + 1;
+    }
+    return -1;
+}
 
-int kmpFirstCount();
+int kmpFirstCount() {
+    getNext();
+    int i = 0, j = 0, cnt = 0;
+    while (i < (int)s.length()) {
+        if (j == -1 || s[i] == t[j])
+            ++i, ++j;
+        else
+            j = nxt[j];
+        if (j == (int)t.length()) {
+            ++cnt;
+            j = nxt[j];
+        }
+    }
+    return cnt;
+}
 
 #ifdef DEBUG
 void print() {
