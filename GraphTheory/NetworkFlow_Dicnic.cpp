@@ -18,7 +18,7 @@
 using namespace std;
 const int MAXN = 5E2 + 7;
 const int MAXE = 5E3 + 7;
-const int INF = 0x3f3f3f3f3f3f3f3f;
+const int INF = 0x3f3f3f3f;
 
 struct Dicnic {
     // Dicnic Algorithm
