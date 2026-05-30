@@ -17,10 +17,13 @@ using namespace std;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
+using ll = long long;
+const ll MOD = 1e9 + 7;
+
 struct Matrix {
     static const int MAXL = 100 + 3;
     int len;
-    int mat[MAXL][MAXL];
+    ll mat[MAXL][MAXL];
 
     void nullMatrix() {
         memset(mat, 0, sizeof(mat));
@@ -48,12 +51,12 @@ struct Matrix {
         for (int i = 1; i <= len; ++i)
             for (int j = 1; j <= len; ++j)
                 for (int k = 1; k <= len; ++k)
-                    c.mat[i][j] = c.mat[i][j] + mat[i][k] * b.mat[k][j];
+                    c.mat[i][j] = (c.mat[i][j] + mat[i][k] * b.mat[k][j]) % MOD;
         return c;
     }
 };
 
-Matrix matrixqPow(Matrix a, int b) {
+Matrix matrixqPow(Matrix a, ll b) {
     Matrix res;
     res.eMatrix();
     for (; b; b >>= 1) {
