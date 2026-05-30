@@ -19,9 +19,11 @@ const int INF = 0x3f3f3f3f;
 // const int DIRX[] = {};
 // const int DIRY[] = {};
 
+std::mt19937 rng((unsigned int)chrono::steady_clock::now().time_since_epoch().count());
+
 struct Node {
     int ch[2];
-    int val, cnt, size, rand;
+    int val, cnt, size, pri;
 } node[MAXN];
 
 int cnt, root;
@@ -32,7 +34,7 @@ void print(int x) {
     if (x == 0) return;
     cout << x << " val: " << node[x].val << " lson: " << node[x].ch[0]
          << " rson: " << node[x].ch[1] << " size: " << node[x].size
-         << " cnt: " << node[x].cnt << " rand: " << node[x].rand << endl;
+         << " cnt: " << node[x].cnt << " rand: " << node[x].pri << endl;
     print(node[x].ch[0]);
     print(node[x].ch[1]);
 }
@@ -43,7 +45,7 @@ void init() {
     for (int i = 0; i <= cnt; ++i) {
         node[cnt].ch[0] = node[cnt].ch[1] = 0;
         node[cnt].val = node[cnt].cnt = node[cnt].size = 0;
-        node[cnt].rand = 0;
+        node[cnt].pri = 0;
     }
     cnt = 0;
     root = 0;
@@ -72,7 +74,7 @@ void insert(int& x, int val) {
         node[x].ch[0] = node[x].ch[1] = 0;
         node[x].val = val;
         node[x].cnt = node[x].size = 1;
-        node[x].rand = rand();
+        node[x].pri = rng();
         return;
     }
     if (node[x].val == val)
@@ -80,7 +82,7 @@ void insert(int& x, int val) {
     else {
         bool xs = val > node[x].val;
         insert(node[x].ch[xs], val);
-        if (node[x].rand < node[node[x].ch[xs]].rand) rotate(x, xs ^ 1);
+        if (node[x].pri < node[node[x].ch[xs]].pri) rotate(x, xs ^ 1);
     }
     update(x);
 }
@@ -95,7 +97,7 @@ void remove(int& x, int val) {
         else if (!node[x].ch[0] && !node[x].ch[1])
             x = 0;
         else {
-            bool xs = node[node[x].ch[1]].rand > node[node[x].ch[0]].rand;
+            bool xs = node[node[x].ch[1]].pri > node[node[x].ch[0]].pri;
             rotate(x, xs ^ 1);
             remove(node[x].ch[xs ^ 1], val);
         }
