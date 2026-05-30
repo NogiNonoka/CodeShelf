@@ -42,8 +42,8 @@ struct Point {
     double dis(const Point& b) { return (*this - b).dot((*this - b)); }
 
     bool operator<(const Point& b) const {
-        if (x == b.x) return y < b.y;
-        return x < b.x;
+        if (fabs(x - b.x) > eps) return x < b.x;
+        return y < b.y;
     }
 };
 

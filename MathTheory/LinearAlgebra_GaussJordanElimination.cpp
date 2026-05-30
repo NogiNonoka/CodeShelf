@@ -6,9 +6,9 @@
  * @LastEditTime        : 2021-11-18 12:13:28
  * @Forward Declaration : None
  * @Discription         :
- *  Gauss Jordan Elimination (High Precision)
+ *  Gauss Jordan Elimination
  *  Calc n * n matrix's solution
- *  Time Complexity: O(N^2)
+ *  Time Complexity: O(N^3)
  */
 
 #include <bits/stdc++.h>
@@ -39,7 +39,7 @@ struct GaussJordanElimination {
     bool elimination() {
         // Gauss Jordan Elimination
         // Calc n * n matrix's solution
-        // Time Complexity: O(N^2)
+        // Time Complexity: O(N^3)
         int flg = 0;
         for (int i = 1; i <= n; ++i) {
             int maxi = i;
