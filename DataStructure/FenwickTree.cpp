@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/DataStructure/FenwickTree.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Fenwick Tree (Binary Indexed Tree)
  *  Point Update, Prefix Query
  *  Time Complexity: O(logN)

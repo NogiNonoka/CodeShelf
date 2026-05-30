@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/MathTheory/Prime_MillerRabin_PollardRho.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Miller-Rabin Primality Test + Pollard Rho Factorization
  *  Time Complexity: O(N^(1/4)) expected
  */

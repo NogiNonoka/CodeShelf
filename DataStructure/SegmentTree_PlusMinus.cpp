@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/DataStructure/SegmentTree_PlusMinus.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Segment Tree
  *  Node Change: Plus Minus
  *  Range Change: Plus Minus

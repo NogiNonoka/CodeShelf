@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/GraphTheory/TwoSAT_Tarjan.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  2-SAT (2-Satisfiability)
  *  Tarjan SCC based
  *  Time Complexity: O(N+M)

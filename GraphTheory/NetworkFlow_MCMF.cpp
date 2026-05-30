@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/GraphTheory/NetworkFlow_MCMF.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Minimum Cost Maximum Flow (MCMF)
  *  SPFA + EK
  *  Time Complexity: O(VE * flow)

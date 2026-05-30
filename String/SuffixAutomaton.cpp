@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/String/SuffixAutomaton.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Suffix Automaton
  *  Substring counting, distinct substring count
  *  Time Complexity: O(N)

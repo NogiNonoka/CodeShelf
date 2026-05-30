@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/Others/MosAlgorithm.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Mo's Algorithm (Sqrt Decomposition)
  *  Offline range query with O((N+Q)*sqrt(N))
  */

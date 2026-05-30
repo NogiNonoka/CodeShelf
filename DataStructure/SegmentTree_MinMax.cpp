@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/DataStructure/SegmentTree_MinMax.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Segment Tree
  *  Node Change: Min Max
  *  Range Change: Min Max (change to new val)

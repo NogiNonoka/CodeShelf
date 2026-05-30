@@ -4,6 +4,8 @@
  * @FilePath            : /CodeShelf/MathTheory/Polynomial_NTT.cpp
  * @Forward Declaration : None
  * @Discription         :
+ * @GeneratedBy        : Claude Code (Anthropic)
+ * @Model              : claude-opus-4-8
  *  Number Theoretic Transform
  *  Mod: 998244353, Primitive Root: 3
  *  Time Complexity: O(NlogN)
