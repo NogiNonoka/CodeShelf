@@ -73,8 +73,8 @@ int build(int l, int r) {
         avx += node[i].x;
         avy += node[i].y;
     }
-    avx /= 1.0 * (r - l - 1);
-    avy /= 1.0 * (r - l - 1);
+    avx /= 1.0 * (r - l + 1);
+    avy /= 1.0 * (r - l + 1);
     for (int i = l; i <= r; ++i) {
         vax += (avx - node[i].x) * (avx - node[i].x);
         vay += (avy - node[i].y) * (avy - node[i].y);
