@@ -25,94 +25,95 @@ struct SegmentTreeMinMax {
     // Time Complexity: O(NlogN)
     struct Node {
         int left, right;
-        Node *lson, *rson;
+        int lson, rson;
         int maxi, mini;
         int maxtag, mintag;
-        Node() : lson(nullptr), rson(nullptr){};
-    } * root;
+    } pool[MAXN << 2];
 
-    void init() { root = new Node; }
+    int cnt;
+    int root;
 
-    void update(Node* now) {
-        now->mini = min(min(now->lson->mini, now->lson->mintag),
-            min(now->rson->mini, now->rson->mintag));
-        now->maxi = max(max(now->lson->maxi, now->lson->maxtag),
-            max(now->rson->maxi, now->rson->maxtag));
+    void init() { cnt = 0; root = ++cnt; }
+
+    void update(int now) {
+        pool[now].mini = min(min(pool[pool[now].lson].mini, pool[pool[now].lson].mintag),
+            min(pool[pool[now].rson].mini, pool[pool[now].rson].mintag));
+        pool[now].maxi = max(max(pool[pool[now].lson].maxi, pool[pool[now].lson].maxtag),
+            max(pool[pool[now].rson].maxi, pool[pool[now].rson].maxtag));
     }
 
-    void build(int l, int r, Node* now) {
-        now->left = l;
-        now->right = r;
+    void build(int l, int r, int now) {
+        pool[now].left = l;
+        pool[now].right = r;
         if (l == r) {
-            now->lson = nullptr;
-            now->rson = nullptr;
-            now->mini = INF;
-            now->maxi = 0;
-            now->mintag = INF;
-            now->maxtag = 0;
+            pool[now].lson = pool[now].rson = 0;
+            pool[now].mini = INF;
+            pool[now].maxi = 0;
+            pool[now].mintag = INF;
+            pool[now].maxtag = 0;
             return;
         }
         int mid = (l + r) >> 1;
-        if (now->lson == nullptr) now->lson = new Node;
-        if (now->rson == nullptr) now->rson = new Node;
-        build(l, mid, now->lson);
-        build(mid + 1, r, now->rson);
+        pool[now].lson = ++cnt;
+        pool[now].rson = ++cnt;
+        build(l, mid, pool[now].lson);
+        build(mid + 1, r, pool[now].rson);
         update(now);
-        now->mintag = INF;
-        now->maxtag = 0;
+        pool[now].mintag = INF;
+        pool[now].maxtag = 0;
     }
 
-    void rangeChange(int l, int r, Node* now, int tg) {
-        if (now->left == l && now->right == r) {
-            now->mintag = min(now->mintag, tg);
-            now->maxtag = max(now->maxtag, tg);
+    void rangeChange(int l, int r, int now, int tg) {
+        if (pool[now].left == l && pool[now].right == r) {
+            pool[now].mintag = min(pool[now].mintag, tg);
+            pool[now].maxtag = max(pool[now].maxtag, tg);
             return;
         }
-        if (r <= now->lson->right)
-            rangeChange(l, r, now->lson, tg);
-        else if (l >= now->rson->left)
-            rangeChange(l, r, now->rson, tg);
+        if (r <= pool[pool[now].lson].right)
+            rangeChange(l, r, pool[now].lson, tg);
+        else if (l >= pool[pool[now].rson].left)
+            rangeChange(l, r, pool[now].rson, tg);
         else {
-            rangeChange(l, now->lson->right, now->lson, tg);
-            rangeChange(now->rson->left, r, now->rson, tg);
+            rangeChange(l, pool[pool[now].lson].right, pool[now].lson, tg);
+            rangeChange(pool[pool[now].rson].left, r, pool[now].rson, tg);
         }
         update(now);
     }
 
-    void pushdown(Node* now) {
-        now->mini = min(now->mini, now->mintag);
-        now->maxi = max(now->maxi, now->maxtag);
-        if (now->left == now->right) return;
-        now->lson->mintag = min(now->lson->mintag, now->mintag);
-        now->lson->maxtag = max(now->lson->maxtag, now->maxtag);
-        now->rson->mintag = min(now->rson->mintag, now->mintag);
-        now->rson->maxtag = max(now->rson->maxtag, now->maxtag);
+    void pushdown(int now) {
+        pool[now].mini = min(pool[now].mini, pool[now].mintag);
+        pool[now].maxi = max(pool[now].maxi, pool[now].maxtag);
+        if (pool[now].left == pool[now].right) return;
+        pool[pool[now].lson].mintag = min(pool[pool[now].lson].mintag, pool[now].mintag);
+        pool[pool[now].lson].maxtag = max(pool[pool[now].lson].maxtag, pool[now].maxtag);
+        pool[pool[now].rson].mintag = min(pool[pool[now].rson].mintag, pool[now].mintag);
+        pool[pool[now].rson].maxtag = max(pool[pool[now].rson].maxtag, pool[now].maxtag);
     }
 
-    pair<int, int> query(int l, int r, Node* now) {
+    pair<int, int> query(int l, int r, int now) {
         pair<int, int> ans; // Range [l, r] Min && Max
         ans.first = INF;
         ans.second = 0;
-        if (now->left == l && now->right == r) {
+        if (pool[now].left == l && pool[now].right == r) {
             pushdown(now);
-            ans.first = min(ans.first, now->mini);
-            ans.second = max(ans.second, now->maxi);
+            ans.first = min(ans.first, pool[now].mini);
+            ans.second = max(ans.second, pool[now].maxi);
             return ans;
         }
         pushdown(now);
-        if (r <= now->lson->right) {
-            pair<int, int> range = query(l, r, now->lson);
+        if (r <= pool[pool[now].lson].right) {
+            pair<int, int> range = query(l, r, pool[now].lson);
             ans.first = min(ans.first, range.first);
             ans.second = max(ans.second, range.second);
-        } else if (l >= now->rson->left) {
-            pair<int, int> range = query(l, r, now->rson);
+        } else if (l >= pool[pool[now].rson].left) {
+            pair<int, int> range = query(l, r, pool[now].rson);
             ans.first = min(ans.first, range.first);
             ans.second = max(ans.second, range.second);
         } else {
-            pair<int, int> range1 = query(l, now->lson->right, now->lson);
+            pair<int, int> range1 = query(l, pool[pool[now].lson].right, pool[now].lson);
             ans.first = min(ans.first, range1.first);
             ans.second = max(ans.second, range1.second);
-            pair<int, int> range2 = query(now->rson->left, r, now->rson);
+            pair<int, int> range2 = query(pool[pool[now].rson].left, r, pool[now].rson);
             ans.first = min(ans.first, range2.first);
             ans.second = max(ans.second, range2.second);
         }
