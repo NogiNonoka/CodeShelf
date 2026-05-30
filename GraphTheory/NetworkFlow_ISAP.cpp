@@ -13,7 +13,7 @@ using namespace std;
 #define int long long
 const int MAXN = 5e2 + 7;
 const int MAXE = 1e5 + 7;
-const int INF = 0x3f3f3f3f;
+const int INF = 0x3f3f3f3f3f3f3f3f;
 
 struct ISAP {
     // ISAP Algorithm
